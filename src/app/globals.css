@@ -2,41 +2,43 @@
 
 :root {
   /* ===== Pokemon Brand ===== */
-  --pokemon-yellow: #ffcb05;
-  --pokemon-yellow-hover: #ffd93d;
+  --pokemon-yellow: #ffcc33;
+  --pokemon-yellow-hover: #ffd54f;
   --pokemon-blue: #2a75bb;
   --pokemon-blue-hover: #3b8fe0;
 
   /* ===== Backgrounds ===== */
-  --bg-primary: #0f172a;
-  --bg-secondary: #1e293b;
-  --bg-tertiary: #243247;
+  --bg-primary: #071e30;
+  --bg-secondary: #0a2840;
+  --bg-tertiary: #0f3347;
 
   /* ===== Glass ===== */
-  --glass-color: #0f223c;
-  --glass-color-rgb: 15, 34, 60;
-  --glass-bg: rgba(var(--glass-color-rgb), 0.58);
-  --glass-bg-solid: rgba(var(--glass-color-rgb), 0.82);
-  --glass-bg-light: rgba(255, 255, 255, 0.06);
-  --glass-bg-hover: rgba(255, 255, 255, 0.1);
+  --glass-color: #071e30;
+  --glass-color-rgb: 7, 30, 48;
+  --glass-bg: rgba(var(--glass-color-rgb), 0.72);
+  --glass-bg-solid: rgba(var(--glass-color-rgb), 0.88);
+  --glass-bg-light: rgba(255, 255, 255, 0.05);
+  --glass-bg-hover: rgba(255, 255, 255, 0.09);
 
   --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-border-hover: rgba(255, 255, 255, 0.18);
+  --glass-border-hover: rgba(255, 255, 255, 0.16);
 
-  --glass-blur: 18px;
-  --glass-saturate: 115%;
+  --glass-blur: 12px;
+  --glass-saturate: 150%;
+  --glass-radius-bar: 12px;
+  --glass-radius-panel: 16px;
 
   --glass-shine: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.14) 0%,
-    rgba(255, 255, 255, 0.04) 38%,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.03) 40%,
     rgba(255, 255, 255, 0) 100%
   );
 
   /* ===== Text ===== */
-  --text-primary: #f8fafc;
+  --text-primary: #ffffff;
   --text-secondary: #cbd5e1;
-  --text-muted: #94a3b8;
+  --text-muted: #a0aec0;
 
   /* ===== Accent ===== */
   --accent-success: #4ade80;
@@ -65,20 +67,21 @@
 
   /* ===== Shadows ===== */
   --shadow-glass:
-    0 12px 40px rgba(0, 0, 0, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.14),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.18);
+    0 10px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2);
 
-  --shadow-yellow: 0 0 20px rgba(255, 203, 5, 0.25);
+  --shadow-yellow: 0 0 20px rgba(255, 204, 51, 0.28);
   --shadow-blue: 0 0 24px rgba(42, 117, 187, 0.2);
 
   /* ===== Gradients ===== */
   --gradient-primary: linear-gradient(135deg, #2a75bb 0%, #3b82f6 100%);
-  --gradient-yellow: linear-gradient(135deg, #ffcb05 0%, #ffd93d 100%);
+  --gradient-yellow: linear-gradient(135deg, #ffcc33 0%, #ffd54f 100%);
 
   /* ===== Background scene ===== */
-  --bg-overlay-top: rgba(15, 34, 60, 0.233);
-  --bg-overlay-bottom: rgba(8, 16, 36, 0.62);
-  --bg-overlay-vignette: rgba(6, 12, 28, 0.35);
+  --bg-overlay-top: rgba(7, 30, 48, 0.38);
+  --bg-overlay-mid: rgba(7, 30, 48, 0.48);
+  --bg-overlay-bottom: rgba(7, 30, 48, 0.62);
+  --bg-overlay-vignette: rgba(4, 16, 28, 0.48);
 }
 
 .app-shell {
@@ -94,7 +97,7 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  filter: hue-rotate(22deg) saturate(0.82) brightness(0.7) contrast(1.06);
+  filter: hue-rotate(16deg) saturate(0.72) brightness(0.58) contrast(1.1);
   transform: scale(1.04);
 }
 
@@ -103,14 +106,14 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse at 50% 0%, rgba(42, 117, 187, 0.18) 0%, transparent 55%),
+    radial-gradient(ellipse at 50% 15%, rgba(42, 117, 187, 0.14) 0%, transparent 52%),
     linear-gradient(
       180deg,
       var(--bg-overlay-top) 0%,
-      rgba(15, 34, 60, 0.28) 45%,
+      var(--bg-overlay-mid) 48%,
       var(--bg-overlay-bottom) 100%
     ),
-    radial-gradient(ellipse at center, transparent 40%, var(--bg-overlay-vignette) 100%);
+    radial-gradient(ellipse at center, transparent 38%, var(--bg-overlay-vignette) 100%);
   pointer-events: none;
 }
 
@@ -129,23 +132,26 @@
   box-shadow: var(--shadow-glass);
 }
 
+.glass-bar {
+  border-radius: var(--glass-radius-bar);
+}
+
 .glass-pill {
   border-radius: 999px;
 }
 
 .glass-panel {
-  border-radius: 16px;
+  border-radius: var(--glass-radius-panel);
 }
 
 .glass-hover {
   transition:
     background 0.2s ease,
     border-color 0.2s ease,
-    box-shadow 0.2s ease,
-    transform 0.2s ease;
+    box-shadow 0.2s ease;
 }
 
 .glass-hover:hover {
-  background: var(--glass-shine), rgba(var(--glass-color-rgb), 0.68);
+  background: var(--glass-shine), rgba(var(--glass-color-rgb), 0.82);
   border-color: var(--glass-border-hover);
 }
