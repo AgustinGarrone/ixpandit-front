@@ -13,55 +13,58 @@ export const Navbar = () => {
       left="50%"
       transform="translateX(-50%)"
       zIndex={1000}
-      w="calc(100% - 32px)"
-      maxW="720px"
-      px={{ base: 2, md: 0 }}
+      w="calc(100% - 48px)"
+      maxW="860px"
     >
       <Flex
+        className="glass glass-pill glass-hover"
         align="center"
         justify="space-between"
-        gap={4}
-        px={{ base: 4, md: 6 }}
-        py={{ base: 2.5, md: 3 }}
-        borderRadius="full"
-        bg="rgba(15, 20, 35, 0.55)"
-        backdropFilter="blur(20px)"
-        border="1px solid"
-        borderColor="rgba(255, 255, 255, 0.14)"
-        boxShadow="0 8px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.08)"
+        px={{ base: 5, md: 8 }}
+        h={{ base: "56px", md: "64px" }}
       >
-        <HStack gap={3} minW={0}>
-          <PokeballIcon />
+        <HStack gap={4} minW={0}>
+          <Box
+            w="28px"
+            h="28px"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            flexShrink={0}
+          >
+            <PokeballIcon />
+          </Box>
+
           <Text
-            fontSize={{ base: "8px", md: "9px" }}
-            color="white"
-            letterSpacing="0.08em"
-            lineClamp={1}
+            color="var(--text-primary)"
+            fontSize={{ base: "8px", md: "10px" }}
+            letterSpacing="0.12em"
+            whiteSpace="nowrap"
           >
             IXP-POK-FRONT
           </Text>
         </HStack>
 
         <Button
-          variant="outline"
-          size="sm"
-          color="white"
-          borderColor="rgba(255, 255, 255, 0.35)"
-          bg="transparent"
-          borderRadius="full"
-          fontSize={{ base: "7px", md: "8px" }}
-          letterSpacing="0.06em"
-          px={{ base: 3, md: 4 }}
-          h={{ base: "32px", md: "36px" }}
+          className="glass-hover"
+          h={{ base: "36px", md: "40px" }}
+          px={{ base: 4, md: 6 }}
+          borderRadius="999px"
+          bg="var(--glass-bg-light)"
+          border="1px solid"
+          borderColor="var(--glass-border)"
+          color="var(--text-primary)"
           flexShrink={0}
           _hover={{
-            bg: "rgba(255, 255, 255, 0.08)",
-            borderColor: "rgba(255, 255, 255, 0.5)",
+            bg: "var(--glass-bg-hover)",
+            borderColor: "var(--glass-border-hover)",
           }}
         >
           <HStack gap={2}>
             <UserIcon />
-            <Text as="span">INICIAR SESIÓN</Text>
+            <Text fontSize={{ base: "7px", md: "8px" }} letterSpacing="0.08em" whiteSpace="nowrap">
+              INICIAR SESIÓN
+            </Text>
           </HStack>
         </Button>
       </Flex>

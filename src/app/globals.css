@@ -1,26 +1,151 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* ===== Pokemon Brand ===== */
+  --pokemon-yellow: #ffcb05;
+  --pokemon-yellow-hover: #ffd93d;
+  --pokemon-blue: #2a75bb;
+  --pokemon-blue-hover: #3b8fe0;
+
+  /* ===== Backgrounds ===== */
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-tertiary: #243247;
+
+  /* ===== Glass ===== */
+  --glass-color: #0f223c;
+  --glass-color-rgb: 15, 34, 60;
+  --glass-bg: rgba(var(--glass-color-rgb), 0.58);
+  --glass-bg-solid: rgba(var(--glass-color-rgb), 0.82);
+  --glass-bg-light: rgba(255, 255, 255, 0.06);
+  --glass-bg-hover: rgba(255, 255, 255, 0.1);
+
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-border-hover: rgba(255, 255, 255, 0.18);
+
+  --glass-blur: 18px;
+  --glass-saturate: 115%;
+
+  --glass-shine: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.14) 0%,
+    rgba(255, 255, 255, 0.04) 38%,
+    rgba(255, 255, 255, 0) 100%
+  );
+
+  /* ===== Text ===== */
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+
+  /* ===== Accent ===== */
+  --accent-success: #4ade80;
+  --accent-danger: #fb7185;
+  --accent-warning: #facc15;
+
+  /* ===== Pokemon Types ===== */
+  --type-fire: #ff7a59;
+  --type-water: #4da6ff;
+  --type-grass: #68d391;
+  --type-electric: #f6d32d;
+  --type-psychic: #ff6fae;
+  --type-ice: #7dd3fc;
+  --type-fighting: #d97757;
+  --type-poison: #a78bfa;
+  --type-ground: #cfa56a;
+  --type-flying: #8db9ff;
+  --type-bug: #84cc16;
+  --type-rock: #bca06b;
+  --type-ghost: #818cf8;
+  --type-dragon: #6366f1;
+  --type-dark: #52525b;
+  --type-steel: #94a3b8;
+  --type-fairy: #f9a8d4;
+  --type-normal: #a1a1aa;
+
+  /* ===== Shadows ===== */
+  --shadow-glass:
+    0 12px 40px rgba(0, 0, 0, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.18);
+
+  --shadow-yellow: 0 0 20px rgba(255, 203, 5, 0.25);
+  --shadow-blue: 0 0 24px rgba(42, 117, 187, 0.2);
+
+  /* ===== Gradients ===== */
+  --gradient-primary: linear-gradient(135deg, #2a75bb 0%, #3b82f6 100%);
+  --gradient-yellow: linear-gradient(135deg, #ffcb05 0%, #ffd93d 100%);
+
+  /* ===== Background scene ===== */
+  --bg-overlay-top: rgba(15, 34, 60, 0.233);
+  --bg-overlay-bottom: rgba(8, 16, 36, 0.62);
+  --bg-overlay-vignette: rgba(6, 12, 28, 0.35);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.app-shell {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.app-background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: hue-rotate(22deg) saturate(0.82) brightness(0.7) contrast(1.06);
+  transform: scale(1.04);
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.app-background::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(42, 117, 187, 0.18) 0%, transparent 55%),
+    linear-gradient(
+      180deg,
+      var(--bg-overlay-top) 0%,
+      rgba(15, 34, 60, 0.28) 45%,
+      var(--bg-overlay-bottom) 100%
+    ),
+    radial-gradient(ellipse at center, transparent 40%, var(--bg-overlay-vignette) 100%);
+  pointer-events: none;
+}
+
+.app-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.glass {
+  background: var(--glass-shine), var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-glass);
+}
+
+.glass-pill {
+  border-radius: 999px;
+}
+
+.glass-panel {
+  border-radius: 16px;
+}
+
+.glass-hover {
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.glass-hover:hover {
+  background: var(--glass-shine), rgba(var(--glass-color-rgb), 0.68);
+  border-color: var(--glass-border-hover);
 }

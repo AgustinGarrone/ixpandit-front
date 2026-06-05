@@ -1,4 +1,5 @@
-import { Flex } from "@chakra-ui/react";
+import "./globals.css";
+
 import { Press_Start_2P } from "next/font/google";
 
 import bgImage from "../../public/bg_screen.png";
@@ -19,18 +20,14 @@ export default function RootLayout({
     <html lang="en">
       <body className={pressStartFont.className}>
         <Providers>
-          <Flex
-            h="100vh"
-            w="100vw"
-            alignItems="center"
-            justifyContent="flex-start"
-            backgroundImage={`url(${bgImage.src})`}
-            backgroundSize="cover"
-            backgroundPosition="center"
-            backgroundRepeat="no-repeat"
-          >
-            {children}
-          </Flex>
+          <div className="app-shell" style={{ minHeight: "100vh", width: "100vw" }}>
+            <div
+              className="app-background"
+              style={{ backgroundImage: `url(${bgImage.src})` }}
+              aria-hidden
+            />
+            <div className="app-content">{children}</div>
+          </div>
         </Providers>
       </body>
     </html>
