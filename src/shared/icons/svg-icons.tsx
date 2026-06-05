@@ -32,3 +32,12 @@ export const GithubIcon = () => (
     </svg>
   </Box>
 );
+
+export const SearchIcon = () => (
+  <Box as="span" display="inline-flex" flexShrink={0} color="var(--text-muted)">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2" />
+      <path d="M20 20l-4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  </Box>
+);

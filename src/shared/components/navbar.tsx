@@ -9,24 +9,24 @@ export const Navbar = () => {
     <Box
       as="nav"
       position="fixed"
-      top={{ base: "16px", md: "24px" }}
+      top={{ base: "12px", md: "16px" }}
       left="50%"
       transform="translateX(-50%)"
       zIndex={1000}
-      w="calc(100% - 48px)"
-      maxW="860px"
+      w="calc(100% - 32px)"
+      maxW="1180px"
     >
       <Flex
-        className="glass glass-pill glass-hover"
+        className="glass glass-bar glass-hover"
         align="center"
         justify="space-between"
-        px={{ base: 5, md: 8 }}
-        h={{ base: "56px", md: "64px" }}
+        px={{ base: 4, md: 6 }}
+        h={{ base: "48px", md: "52px" }}
       >
-        <HStack gap={4} minW={0}>
+        <HStack gap={3} minW={0}>
           <Box
-            w="28px"
-            h="28px"
+            w="24px"
+            h="24px"
             display="flex"
             alignItems="center"
             justifyContent="center"
@@ -37,7 +37,7 @@ export const Navbar = () => {
 
           <Text
             color="var(--text-primary)"
-            fontSize={{ base: "8px", md: "10px" }}
+            fontSize={{ base: "8px", md: "9px" }}
             letterSpacing="0.12em"
             whiteSpace="nowrap"
           >
@@ -47,9 +47,9 @@ export const Navbar = () => {
 
         <Button
           className="glass-hover"
-          h={{ base: "36px", md: "40px" }}
-          px={{ base: 4, md: 6 }}
-          borderRadius="999px"
+          h={{ base: "32px", md: "36px" }}
+          px={{ base: 3, md: 4 }}
+          borderRadius="8px"
           bg="var(--glass-bg-light)"
           border="1px solid"
           borderColor="var(--glass-border)"

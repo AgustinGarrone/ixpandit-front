@@ -12,20 +12,20 @@ export const Footer = () => {
     <Box
       as="footer"
       position="fixed"
-      bottom={{ base: "16px", md: "24px" }}
+      bottom={{ base: "12px", md: "16px" }}
       left="50%"
       transform="translateX(-50%)"
       zIndex={1000}
-      w="calc(100% - 48px)"
-      maxW="860px"
+      w="calc(100% - 32px)"
+      maxW="1180px"
     >
       <Flex
-        className="glass glass-pill glass-hover"
+        className="glass glass-bar glass-hover"
         align="center"
         justify="space-between"
         gap={4}
-        px={{ base: 5, md: 8 }}
-        h={{ base: "56px", md: "64px" }}
+        px={{ base: 4, md: 6 }}
+        h={{ base: "48px", md: "52px" }}
       >
         <Link
           href={PORTFOLIO_URL}
@@ -35,13 +35,13 @@ export const Footer = () => {
         >
           <HStack gap={3} minW={0}>
             <Box
-              w="24px"
-              h="24px"
+              w="22px"
+              h="22px"
               display="flex"
               alignItems="center"
               justifyContent="center"
               flexShrink={0}
-              transform="scale(0.9)"
+              transform="scale(0.85)"
             >
               <PokeballIcon />
             </Box>
