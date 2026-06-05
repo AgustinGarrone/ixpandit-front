@@ -2,10 +2,9 @@
 
 import { ChakraProvider, defaultSystem } from "@chakra-ui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useState, type ReactNode } from "react";
-import Layout from "../layout";
+import { type ReactNode, useState } from "react";
 
-export function Providers({ children }: { children: ReactNode }) {
+export const Providers = ({ children }: { children: ReactNode }) => {
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -19,9 +18,7 @@ export function Providers({ children }: { children: ReactNode }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ChakraProvider value={defaultSystem}>
-        <Layout>{children}</Layout>
-      </ChakraProvider>
+      <ChakraProvider value={defaultSystem}>{children}</ChakraProvider>
     </QueryClientProvider>
   );
-}
+};
