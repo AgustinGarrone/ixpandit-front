@@ -60,7 +60,7 @@ export const RandomPokemonSelector: FC = () => {
             >
               <TypeAnimation
                 sequence={[
-                  `Bienvenido , ${userInfo?.username}. Antes de empezar, debes elegir tus primeros 3 pokemon. Mucha suerte!`,
+                  `Bienvenido , ${userInfo?.username ?? "entrenador"}. Antes de empezar, debes elegir tus primeros 3 pokemon. Mucha suerte!`,
                   () => {
                     setShowButton(true);
                   },

@@ -25,6 +25,43 @@ export const UserIcon = () => (
   </Box>
 );
 
+export const PokemonMasterIcon = () => (
+  <Box as="span" display="inline-flex" flexShrink={0}>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M3 13.5L12 7l9 6.5"
+        stroke="#e53e3e"
+        strokeWidth="2"
+        strokeLinejoin="round"
+        strokeLinecap="round"
+      />
+      <ellipse cx="12" cy="13.5" rx="9" ry="3.5" fill="#e53e3e" />
+      <path d="M3 13.5h18" stroke="white" strokeWidth="1.5" />
+      <circle cx="12" cy="17" r="2.5" fill="#f6e05e" stroke="#1a1a2e" strokeWidth="1" />
+    </svg>
+  </Box>
+);
+
+export const LogoutIcon = () => (
+  <Box as="span" display="inline-flex" flexShrink={0} color="#e53e3e">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+      <path
+        d="M16 17l5-5-5-5M21 12H9"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  </Box>
+);
+
 export const GithubIcon = () => (
   <Box as="span" display="inline-flex" flexShrink={0} color="white">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">

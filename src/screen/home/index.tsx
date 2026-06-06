@@ -1,11 +1,17 @@
 "use client";
 
 import { Box, Flex } from "@chakra-ui/react";
+import dynamic from "next/dynamic";
 
 import { PokemonGrid } from "@/screen/home/components/PokemonGrid";
 import { Footer } from "@/shared/components/footer";
-import { Navbar } from "@/shared/components/navbar";
+import { NavbarSkeleton } from "@/shared/components/navbar-skeleton";
 import { Searcher } from "@/shared/components/search";
+
+const Navbar = dynamic(
+  () => import("@/shared/components/navbar").then((mod) => ({ default: mod.Navbar })),
+  { ssr: false, loading: () => <NavbarSkeleton /> },
+);
 
 export const HomePage = () => {
   return (

@@ -1,6 +1,5 @@
 "use client";
 import { jwtDecode, type JwtPayload } from "jwt-decode";
-import { useRouter } from "next/navigation";
 import { createContext, type ReactNode, useContext } from "react";
 
 import { type DecodeTokenData } from "@/shared/types/api/auth.types";
@@ -21,15 +20,17 @@ const defaultAuthContext = {
 const AuthContext = createContext(defaultAuthContext);
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const router = useRouter();
-
   const isAuthenticated = () => {
     if (checkLocalStorage()) {
       const token = localStorage.getItem("accessToken");
       if (token) {
-        const decodedToken = jwtDecode(token);
-        const currentTime = Date.now() / 1000;
-        return decodedToken.exp! > currentTime;
+        try {
+          const decodedToken = jwtDecode(token);
+          const currentTime = Date.now() / 1000;
+          return Boolean(decodedToken.exp && decodedToken.exp > currentTime);
+        } catch {
+          return false;
+        }
       }
     }
     return false;
@@ -77,7 +78,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     if (checkLocalStorage()) {
       localStorage.removeItem("initialPokemons");
       localStorage.removeItem("accessToken");
-      router.push("/login");
     }
   };
 

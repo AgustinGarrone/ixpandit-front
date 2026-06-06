@@ -4,6 +4,8 @@ import { ChakraProvider, defaultSystem } from "@chakra-ui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { type ReactNode, useState } from "react";
 
+import { AuthProvider } from "@/hooks/useAuth";
+
 export const Providers = ({ children }: { children: ReactNode }) => {
   const [queryClient] = useState(
     () =>
@@ -18,7 +20,9 @@ export const Providers = ({ children }: { children: ReactNode }) => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ChakraProvider value={defaultSystem}>{children}</ChakraProvider>
+      <ChakraProvider value={defaultSystem}>
+        <AuthProvider>{children}</AuthProvider>
+      </ChakraProvider>
     </QueryClientProvider>
   );
 };
