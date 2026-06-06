@@ -24,3 +24,11 @@ export interface Ability {
   id: number;
   name: string;
 }
+
+export interface Pokemon {
+  id: number;
+  name: string;
+  imageUrl: string;
+  type: string;
+  abilities: string[];
+}

@@ -9,6 +9,8 @@ export type JSendPagination = {
   limit: number;
   total: number;
   totalPages: number;
+  hasNext?: boolean;
+  hasPrev?: boolean;
 };
 
 export type JSendMeta = {
