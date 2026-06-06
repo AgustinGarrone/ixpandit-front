@@ -1,5 +1,4 @@
-import { type HttpStatusCode } from "axios";
-
+import { type JSendSuccess } from "./jsend.types";
 import { type UserWithToken } from "./models";
 
 export type LoginMutationData = {
@@ -15,14 +14,23 @@ export type RegisterMutationData = {
 
 export type DecodeTokenData = {
   username: string;
-  id: number;
+  id: string;
   initialPokemons: boolean;
   iat: number;
   exp: number;
 };
 
+export type AuthUserData = {
+  id: string;
+  username: string;
+  email: string;
+  token: string;
+  initialPokemons: boolean;
+};
+
 export type AuthResponses = {
   user: UserWithToken;
-  status: HttpStatusCode;
   message: string;
 };
+
+export type AuthJSendResponse = JSendSuccess<AuthUserData>;

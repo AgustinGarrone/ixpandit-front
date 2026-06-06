@@ -9,6 +9,7 @@ import axios, {
 } from "axios";
 
 import { env } from "@/config/env";
+import { normalizeApiError } from "@/shared/utils/api-error.utils";
 
 import { getAuthFromCache } from "./auth";
 
@@ -60,28 +61,48 @@ export default class RESTClient {
   }
 
   protected async get<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
-    const { data } = await this.client.get<T>(url, config);
-    return data;
+    try {
+      const { data } = await this.client.get<T>(url, config);
+      return data;
+    } catch (error) {
+      throw normalizeApiError(error, "No pudimos obtener la información.");
+    }
   }
 
   protected async post<T>(url: string, body?: unknown, config?: AxiosRequestConfig): Promise<T> {
-    const { data } = await this.client.post<T>(url, body, config);
-    return data;
+    try {
+      const { data } = await this.client.post<T>(url, body, config);
+      return data;
+    } catch (error) {
+      throw normalizeApiError(error, "No pudimos completar la solicitud.");
+    }
   }
 
   protected async put<T>(url: string, body?: unknown, config?: AxiosRequestConfig): Promise<T> {
-    const { data } = await this.client.put<T>(url, body, config);
-    return data;
+    try {
+      const { data } = await this.client.put<T>(url, body, config);
+      return data;
+    } catch (error) {
+      throw normalizeApiError(error, "No pudimos actualizar la información.");
+    }
   }
 
   protected async patch<T>(url: string, body?: unknown, config?: AxiosRequestConfig): Promise<T> {
-    const { data } = await this.client.patch<T>(url, body, config);
-    return data;
+    try {
+      const { data } = await this.client.patch<T>(url, body, config);
+      return data;
+    } catch (error) {
+      throw normalizeApiError(error, "No pudimos actualizar la información.");
+    }
   }
 
   protected async delete<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
-    const { data } = await this.client.delete<T>(url, config);
-    return data;
+    try {
+      const { data } = await this.client.delete<T>(url, config);
+      return data;
+    } catch (error) {
+      throw normalizeApiError(error, "No pudimos eliminar la información.");
+    }
   }
 }
 
