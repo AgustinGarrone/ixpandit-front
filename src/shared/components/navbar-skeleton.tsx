@@ -52,7 +52,11 @@ export const NavbarSkeleton = () => (
 
       <HStack gap={4}>
         <SkeletonBlock w={{ base: "88px", md: "96px" }} h="14px" />
-        <SkeletonBlock w={{ base: "120px", md: "132px" }} h={{ base: "36px", md: "40px" }} borderRadius="999px" />
+        <SkeletonBlock
+          w={{ base: "120px", md: "132px" }}
+          h={{ base: "36px", md: "40px" }}
+          borderRadius="999px"
+        />
       </HStack>
     </Flex>
   </Box>

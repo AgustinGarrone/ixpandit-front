@@ -1,7 +1,11 @@
 "use client";
 
 import { type Pokemon } from "@/shared/types/api/models";
-import { type ListPokemonQuery, type PokemonListResponse } from "@/shared/types/api/pokemon.types";
+import {
+  type ListPokemonQuery,
+  type PokemonListResponse,
+  type PokemonTypesResponse,
+} from "@/shared/types/api/pokemon.types";
 import { ApiRequestError } from "@/shared/utils/api-error.utils";
 
 import RESTClient from "./RESTClient";
@@ -9,6 +13,10 @@ import RESTClient from "./RESTClient";
 class PokemonClient extends RESTClient {
   async findAll(query: ListPokemonQuery = {}): Promise<PokemonListResponse> {
     return this.get<PokemonListResponse>("pokemon", { params: query });
+  }
+
+  async getTypes(): Promise<PokemonTypesResponse> {
+    return this.get<PokemonTypesResponse>("pokemon/types");
   }
 
   async getRandomPokemon(excludeIds: number[] = []): Promise<Pokemon> {

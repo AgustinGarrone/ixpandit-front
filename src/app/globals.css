@@ -44,6 +44,8 @@
   --accent-success: #4ade80;
   --accent-danger: #fb7185;
   --accent-warning: #facc15;
+  --accent-purple: #7c3aed;
+  --accent-purple-hover: #8b5cf6;
 
   /* ===== Pokemon Types ===== */
   --type-fire: #ff7a59;

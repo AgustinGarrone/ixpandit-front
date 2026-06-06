@@ -71,6 +71,16 @@ export const typeLabels: Record<string, string> = {
 
 export const formatPokemonId = (id: number) => `#${String(id).padStart(4, "0")}`;
 
+export const formatTypeFilterLabel = (slug: string, fallbackName: string) => {
+  const label = typeLabels[slug.toLowerCase()];
+
+  if (label) {
+    return label.charAt(0) + label.slice(1).toLowerCase();
+  }
+
+  return fallbackName;
+};
+
 export const emptyPokemons: Pokemon[] = [
   {
     name: "",

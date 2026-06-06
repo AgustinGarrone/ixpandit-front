@@ -14,6 +14,13 @@ export const usePokemonList = (query: ListPokemonQuery = {}) =>
     queryFn: () => pokemonClient.findAll(query),
   });
 
+export const usePokemonTypes = () =>
+  useQuery({
+    queryKey: pokemonKeys.types(),
+    queryFn: () => pokemonClient.getTypes(),
+    staleTime: 5 * 60 * 1000,
+  });
+
 export const useRandomPokemon = () =>
   useMutation<Pokemon, ApiRequestError, number[]>({
     mutationFn: (excludeIds) => pokemonClient.getRandomPokemon(excludeIds),

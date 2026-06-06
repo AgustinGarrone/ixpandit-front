@@ -11,11 +11,25 @@ import { type Pokemon } from "@/shared/types/api/models";
 
 const PAGE_SIZE = 4;
 
-export const PokemonGrid = () => {
+type PokemonGridProps = {
+  selectedType: string | null;
+};
+
+export const PokemonGrid = ({ selectedType }: PokemonGridProps) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [savedIds, setSavedIds] = useState<Set<number>>(() => new Set());
+  const [prevSelectedType, setPrevSelectedType] = useState(selectedType);
 
-  const { data, isLoading } = usePokemonList({ page: currentPage, limit: PAGE_SIZE });
+  if (selectedType !== prevSelectedType) {
+    setPrevSelectedType(selectedType);
+    setCurrentPage(1);
+  }
+
+  const { data, isLoading } = usePokemonList({
+    page: currentPage,
+    limit: PAGE_SIZE,
+    ...(selectedType ? { type: selectedType } : {}),
+  });
 
   const pokemons = data?.data ?? [];
   const totalPages = data?.meta?.pagination?.totalPages ?? 1;
@@ -96,11 +110,7 @@ export const PokemonGrid = () => {
         )}
       </VStack>
 
-      <Paginator
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={setCurrentPage}
-      />
+      <Paginator currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
     </VStack>
   );
 };

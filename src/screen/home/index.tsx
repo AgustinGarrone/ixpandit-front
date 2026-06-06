@@ -2,11 +2,12 @@
 
 import { Box, Flex } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
+import { useState } from "react";
 
 import { PokemonGrid } from "@/screen/home/components/PokemonGrid";
 import { Footer } from "@/shared/components/footer";
 import { NavbarSkeleton } from "@/shared/components/navbar-skeleton";
-import { Searcher } from "@/shared/components/search";
+import { Searcher } from "@/shared/components/searcher/search";
 
 const Navbar = dynamic(
   () => import("@/shared/components/navbar").then((mod) => ({ default: mod.Navbar })),
@@ -14,6 +15,8 @@ const Navbar = dynamic(
 );
 
 export const HomePage = () => {
+  const [selectedType, setSelectedType] = useState<string | null>(null);
+
   return (
     <Flex direction="column" h="100%" overflow="hidden">
       <Navbar />
@@ -41,7 +44,7 @@ export const HomePage = () => {
           overflow="hidden"
         >
           <Box flex={{ base: "0 0 auto", lg: "1" }} minW={0} w="full">
-            <Searcher />
+            <Searcher selectedType={selectedType} onTypeChange={setSelectedType} />
           </Box>
 
           <Box
@@ -53,7 +56,7 @@ export const HomePage = () => {
             display="flex"
             flexDirection="column"
           >
-            <PokemonGrid />
+            <PokemonGrid selectedType={selectedType} />
           </Box>
         </Flex>
       </Box>
