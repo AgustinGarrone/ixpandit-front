@@ -78,3 +78,16 @@ export const SearchIcon = () => (
     </svg>
   </Box>
 );
+
+export const BookmarkIcon = ({ filled = false }: { filled?: boolean }) => (
+  <Box as="span" display="inline-flex" flexShrink={0} color={filled ? "var(--pokemon-yellow)" : "var(--text-muted)"}>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill={filled ? "currentColor" : "none"} aria-hidden="true">
+      <path
+        d="M6 4a2 2 0 012-2h8a2 2 0 012 2v16l-6-3.5L6 20V4z"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinejoin="round"
+      />
+    </svg>
+  </Box>
+);

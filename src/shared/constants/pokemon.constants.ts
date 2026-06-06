@@ -23,6 +23,54 @@ export const typeColors: { [key: string]: string } = {
   unknown: "linear-gradient(to bottom, #6B6B6B, #A8A8A8)",
 };
 
+export const typeSolidColors: Record<string, string> = {
+  normal: "var(--type-normal)",
+  fighting: "var(--type-fighting)",
+  flying: "var(--type-flying)",
+  poison: "var(--type-poison)",
+  ground: "var(--type-ground)",
+  rock: "var(--type-rock)",
+  bug: "var(--type-bug)",
+  ghost: "var(--type-ghost)",
+  steel: "var(--type-steel)",
+  fire: "var(--type-fire)",
+  water: "var(--type-water)",
+  grass: "var(--type-grass)",
+  electric: "var(--type-electric)",
+  psychic: "var(--type-psychic)",
+  ice: "var(--type-ice)",
+  dragon: "var(--type-dragon)",
+  dark: "var(--type-dark)",
+  fairy: "var(--type-fairy)",
+  stellar: "#FFAC7D",
+  unknown: "#6B6B6B",
+};
+
+export const typeLabels: Record<string, string> = {
+  normal: "NORMAL",
+  fighting: "LUCHA",
+  flying: "VOLADOR",
+  poison: "VENENO",
+  ground: "TIERRA",
+  rock: "ROCA",
+  bug: "BICHO",
+  ghost: "FANTASMA",
+  steel: "ACERO",
+  fire: "FUEGO",
+  water: "AGUA",
+  grass: "PLANTA",
+  electric: "ELÉCTRICO",
+  psychic: "PSÍQUICO",
+  ice: "HIELO",
+  dragon: "DRAGÓN",
+  dark: "SINIESTRO",
+  fairy: "HADA",
+  stellar: "ESTELAR",
+  unknown: "DESCONOCIDO",
+};
+
+export const formatPokemonId = (id: number) => `#${String(id).padStart(4, "0")}`;
+
 export const emptyPokemons: Pokemon[] = [
   {
     name: "",
