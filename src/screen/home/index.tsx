@@ -15,38 +15,50 @@ const Navbar = dynamic(
 
 export const HomePage = () => {
   return (
-    <>
+    <Flex direction="column" h="100%" overflow="hidden">
       <Navbar />
 
       <Box
         as="main"
-        w="full"
-        minH="100vh"
+        flex="1"
+        minH={0}
         display="flex"
-        justifyContent="center"
-        px={4}
-        pt="150px"
-        pb={{ base: "72px", md: "80px" }}
+        flexDirection="column"
+        pt={{ base: "88px", md: "104px" }}
+        pb={{ base: 8, md: 12 }}
+        px={{ base: 5, md: 10 }}
+        overflow="hidden"
       >
         <Flex
+          flex="1"
+          minH={0}
           w="full"
-          maxW="1180px"
-          gap={4}
-          flex={1}
+          maxW="1280px"
+          mx="auto"
+          gap={{ base: 8, lg: 12 }}
           direction={{ base: "column", lg: "row" }}
-          align="stretch"
+          align={{ base: "stretch", lg: "center" }}
+          overflow="hidden"
         >
-          <Box flex="1" minW={0}>
+          <Box flex={{ base: "0 0 auto", lg: "1" }} minW={0} w="full">
             <Searcher />
           </Box>
 
-          <Box flex="1" minW={0}>
+          <Box
+            flex="1"
+            minH={0}
+            minW={0}
+            w="full"
+            maxH={{ base: "none", lg: "100%" }}
+            display="flex"
+            flexDirection="column"
+          >
             <PokemonGrid />
           </Box>
         </Flex>
       </Box>
 
       <Footer />
-    </>
+    </Flex>
   );
 };

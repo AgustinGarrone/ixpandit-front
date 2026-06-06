@@ -1,13 +1,29 @@
 "use client";
 
-import { Box, Button, Flex, HStack, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, HStack, Image, Text, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 
 import { useAuth } from "@/hooks/useAuth";
 import { LoginModal } from "@/shared/components/authModal";
 import { type DecodeTokenData } from "@/shared/types/api/auth.types";
 
-import { LogoutIcon, PokeballIcon, PokemonMasterIcon, UserIcon } from "../icons/svg-icons";
+import ashAvatar from "../../../public/ash.png";
+import { LogoutIcon, PokeballIcon, UserIcon } from "../icons/svg-icons";
+
+const outlineButtonStyles = {
+  h: { base: "36px", md: "40px" },
+  px: { base: 4, md: 5 },
+  borderRadius: "999px",
+  bg: "transparent",
+  border: "1px solid",
+  borderColor: "rgba(255, 255, 255, 0.28)",
+  color: "var(--text-primary)",
+  fontSize: { base: "xs", md: "sm" },
+  fontWeight: "500",
+  flexShrink: 0,
+  _hover: { bg: "transparent", borderColor: "rgba(255, 255, 255, 0.28)" },
+  _active: { bg: "transparent" },
+};
 
 export const Navbar = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -20,117 +36,122 @@ export const Navbar = () => {
       <Box
         as="nav"
         position="fixed"
-        top={{ base: "12px", md: "16px" }}
-        left="50%"
-        transform="translateX(-50%)"
+        top={0}
+        left={0}
+        right={0}
         zIndex={1000}
-        w="calc(100% - 32px)"
-        maxW="1180px"
+        bg="var(--bg-primary)"
+        borderBottom="1px solid rgba(255, 255, 255, 0.08)"
       >
         <Flex
-          className="glass glass-bar glass-hover"
           align="center"
           justify="space-between"
-          px={{ base: 4, md: 6 }}
-          h={{ base: "48px", md: "52px" }}
+          w="full"
+          maxW="1440px"
+          mx="auto"
+          px={{ base: 4, md: 8 }}
+          h={{ base: "64px", md: "72px" }}
+          gap={4}
         >
-          <HStack gap={3} minW={0}>
-            <Box
-              w="24px"
-              h="24px"
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              flexShrink={0}
-            >
+          <HStack gap={{ base: 3, md: 4 }} minW={0}>
+            <Box flexShrink={0} transform="scale(1.1)" transformOrigin="center">
               <PokeballIcon />
             </Box>
 
-            <Text
-              color="var(--text-primary)"
-              fontSize={{ base: "8px", md: "9px" }}
-              letterSpacing="0.12em"
-              whiteSpace="nowrap"
-            >
-              IXP-POK-FRONT
-            </Text>
+            <VStack align="flex-start" gap={0.5} minW={0}>
+              <Text
+                fontSize={{ base: "md", md: "lg" }}
+                fontWeight="700"
+                letterSpacing="0.02em"
+                lineHeight="1.1"
+                whiteSpace="nowrap"
+              >
+                <Text as="span" color="var(--text-primary)">
+                  POKEMON{" "}
+                </Text>
+                <Text as="span" color="var(--pokemon-yellow)">
+                  FINDER
+                </Text>
+              </Text>
+              <Text
+                color="var(--text-muted)"
+                fontSize={{ base: "xs", md: "sm" }}
+                lineHeight="1.3"
+                whiteSpace="nowrap"
+              >
+                Atrapa, entrena y conquista ⚡
+              </Text>
+            </VStack>
           </HStack>
 
-          {authenticated && userInfo ? (
-            <HStack gap={2} flexShrink={0}>
-              <Flex
-                className="glass-hover"
-                align="center"
-                gap={2}
-                h={{ base: "32px", md: "36px" }}
-                px={{ base: 3, md: 4 }}
-                borderRadius="8px"
-                bg="var(--glass-bg-light)"
-                border="1px solid"
-                borderColor="var(--glass-border)"
-              >
-                <PokemonMasterIcon />
-                <Text
-                  color="var(--text-primary)"
-                  fontSize={{ base: "7px", md: "8px" }}
-                  letterSpacing="0.08em"
-                  whiteSpace="nowrap"
-                  maxW={{ base: "120px", md: "180px" }}
-                  truncate
-                >
-                  Hola, {userInfo.username}
-                </Text>
-              </Flex>
+          <HStack gap={{ base: 3, md: 4 }} flexShrink={0}>
+            {authenticated && userInfo ? (
+              <>
+                <HStack gap={3}>
+                  <Box
+                    w={{ base: "36px", md: "40px" }}
+                    h={{ base: "36px", md: "40px" }}
+                    borderRadius="full"
+                    overflow="hidden"
+                    border="2px solid"
+                    borderColor="rgba(255, 255, 255, 0.2)"
+                    flexShrink={0}
+                  >
+                    <Image
+                      src={ashAvatar.src}
+                      alt={userInfo.username}
+                      w="full"
+                      h="full"
+                      objectFit="cover"
+                    />
+                  </Box>
 
-              <Button
-                className="glass-hover"
-                aria-label="Cerrar sesión"
-                h={{ base: "32px", md: "36px" }}
-                w={{ base: "32px", md: "36px" }}
-                minW={{ base: "32px", md: "36px" }}
-                p={0}
-                borderRadius="8px"
-                bg="var(--glass-bg-light)"
-                border="1px solid"
-                borderColor="var(--glass-border)"
-                onClick={logout}
-                _hover={{
-                  bg: "rgba(229, 62, 62, 0.12)",
-                  borderColor: "#e53e3e",
-                }}
-              >
-                <LogoutIcon />
-              </Button>
-            </HStack>
-          ) : (
-            <Button
-              className="glass-hover"
-              h={{ base: "32px", md: "36px" }}
-              px={{ base: 3, md: 4 }}
-              borderRadius="8px"
-              bg="var(--glass-bg-light)"
-              border="1px solid"
-              borderColor="var(--glass-border)"
-              color="var(--text-primary)"
-              flexShrink={0}
-              onClick={() => setIsLoginOpen(true)}
-              _hover={{
-                bg: "var(--glass-bg-hover)",
-                borderColor: "var(--glass-border-hover)",
-              }}
-            >
-              <HStack gap={2}>
-                <UserIcon />
-                <Text
-                  fontSize={{ base: "7px", md: "8px" }}
-                  letterSpacing="0.08em"
-                  whiteSpace="nowrap"
+                  <Text
+                    color="var(--text-primary)"
+                    fontSize={{ base: "sm", md: "md" }}
+                    fontWeight="600"
+                    lineHeight="1.2"
+                    maxW="180px"
+                    truncate
+                    display={{ base: "none", sm: "block" }}
+                  >
+                    {userInfo.username.toUpperCase()}
+                  </Text>
+                </HStack>
+
+                <Box
+                  w="1px"
+                  h={{ base: "32px", md: "36px" }}
+                  bg="rgba(255, 255, 255, 0.12)"
+                  flexShrink={0}
+                />
+
+                <Button
+                  aria-label="Cerrar sesión"
+                  w={{ base: "36px", md: "40px" }}
+                  h={{ base: "36px", md: "40px" }}
+                  minW={{ base: "36px", md: "40px" }}
+                  p={0}
+                  borderRadius="10px"
+                  bg="transparent"
+                  border="none"
+                  flexShrink={0}
+                  onClick={logout}
+                  _hover={{ bg: "rgba(229, 62, 62, 0.12)" }}
+                  _active={{ bg: "rgba(229, 62, 62, 0.16)" }}
                 >
-                  INICIAR SESIÓN
-                </Text>
-              </HStack>
-            </Button>
-          )}
+                  <LogoutIcon />
+                </Button>
+              </>
+            ) : (
+              <Button {...outlineButtonStyles} onClick={() => setIsLoginOpen(true)}>
+                <HStack gap={2}>
+                  <UserIcon />
+                  <Text>Iniciar sesión</Text>
+                </HStack>
+              </Button>
+            )}
+          </HStack>
         </Flex>
       </Box>
 

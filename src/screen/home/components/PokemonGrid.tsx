@@ -38,9 +38,12 @@ export const PokemonGrid = () => {
     <VStack
       className="glass glass-panel"
       align="stretch"
-      gap={{ base: 4, md: 5 }}
+      gap={{ base: 6, md: 8 }}
       w="full"
-      p={{ base: 4, md: 5 }}
+      h="full"
+      minH={0}
+      p={{ base: 5, md: 6 }}
+      overflow="hidden"
     >
       <HStack gap={3}>
         <Box flexShrink={0} transform="scale(1.1)" transformOrigin="center">
@@ -56,7 +59,7 @@ export const PokemonGrid = () => {
         </Text>
       </HStack>
 
-      <VStack align="stretch" gap={3} minH={{ base: "280px", md: "360px" }}>
+      <VStack align="stretch" gap={4} flex="1" minH={0} overflow="auto">
         {isLoading ? (
           Array.from({ length: PAGE_SIZE }).map((_, index) => (
             <Box

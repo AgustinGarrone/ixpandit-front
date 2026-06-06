@@ -11,44 +11,35 @@ export const Footer = () => {
   return (
     <Box
       as="footer"
-      position="fixed"
-      bottom={{ base: "12px", md: "16px" }}
-      left="50%"
-      transform="translateX(-50%)"
-      zIndex={1000}
-      w="calc(100% - 32px)"
-      maxW="1180px"
+      w="full"
+      flexShrink={0}
+      bg="var(--bg-primary)"
+      borderTop="1px solid rgba(255, 255, 255, 0.08)"
     >
       <Flex
-        className="glass glass-bar glass-hover"
         align="center"
         justify="space-between"
+        w="full"
+        maxW="1440px"
+        mx="auto"
+        px={{ base: 4, md: 8 }}
+        h="40px"
         gap={4}
-        px={{ base: 4, md: 6 }}
-        h={{ base: "48px", md: "52px" }}
       >
         <Link
           href={PORTFOLIO_URL}
           target="_blank"
           rel="noopener noreferrer"
-          _hover={{ textDecoration: "none", opacity: 0.9 }}
+          _hover={{ textDecoration: "none", opacity: 0.85 }}
         >
           <HStack gap={3} minW={0}>
-            <Box
-              w="22px"
-              h="22px"
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              flexShrink={0}
-              transform="scale(0.85)"
-            >
+            <Box flexShrink={0} transform="scale(0.9)" transformOrigin="center">
               <PokeballIcon />
             </Box>
             <Text
-              fontSize={{ base: "7px", md: "8px" }}
+              fontSize={{ base: "xs", md: "sm" }}
+              fontWeight="500"
               color="var(--text-primary)"
-              letterSpacing="0.08em"
               lineClamp={1}
             >
               Hecho por Agustín Garrone
@@ -61,14 +52,10 @@ export const Footer = () => {
           target="_blank"
           rel="noopener noreferrer"
           flexShrink={0}
-          _hover={{ textDecoration: "none", opacity: 0.9 }}
+          _hover={{ textDecoration: "none", opacity: 0.85 }}
         >
           <HStack gap={2}>
-            <Text
-              fontSize={{ base: "7px", md: "8px" }}
-              color="var(--text-primary)"
-              letterSpacing="0.08em"
-            >
+            <Text fontSize={{ base: "xs", md: "sm" }} fontWeight="500" color="var(--text-primary)">
               Link a mi repo
             </Text>
             <GithubIcon />

@@ -7,6 +7,7 @@ import bgImage from "../../../public/login_back5.jpg";
 export const GetInitialPokemonsPage = () => {
   return (
     <Flex
+      className="font-pokemon"
       direction="column"
       h="100vh"
       w="100vw"
