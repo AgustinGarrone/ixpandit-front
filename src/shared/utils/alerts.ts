@@ -44,3 +44,25 @@ export function errorAlert(title: string) {
     timer: 1000,
   });
 }
+
+export function infoAlert(title: string) {
+  Swal.fire({
+    toast: true,
+    position: "top-end",
+    icon: "info",
+    title,
+    showConfirmButton: false,
+    timer: 2800,
+    customClass: {
+      popup: "glass-toast",
+      title: "glass-toast__title",
+      icon: "glass-toast__icon",
+    },
+    showClass: {
+      popup: "glass-toast--show",
+    },
+    hideClass: {
+      popup: "glass-toast--hide",
+    },
+  });
+}

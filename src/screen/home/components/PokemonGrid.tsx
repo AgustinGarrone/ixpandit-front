@@ -3,11 +3,13 @@
 import { Box, HStack, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 
+import { useAuth } from "@/hooks/useAuth";
 import { usePokemonList } from "@/hooks/usePokemonClient";
 import { Paginator } from "@/shared/components/paginator";
 import { PokemonSearcherCard } from "@/shared/components/pokemonSearcherCard";
 import { PokeballIcon } from "@/shared/icons/svg-icons";
 import { type Pokemon } from "@/shared/types/api/models";
+import { infoAlert } from "@/shared/utils/alerts";
 
 const PAGE_SIZE = 8;
 
@@ -19,6 +21,8 @@ type PokemonGridProps = {
 };
 
 export const PokemonGrid = ({ selectedType, nameLike }: PokemonGridProps) => {
+  const { isAuthenticated } = useAuth();
+  const authenticated = isAuthenticated();
   const [currentPage, setCurrentPage] = useState(1);
   const [savedIds, setSavedIds] = useState<Set<number>>(() => new Set());
   const [prevSelectedType, setPrevSelectedType] = useState(selectedType);
@@ -40,6 +44,11 @@ export const PokemonGrid = ({ selectedType, nameLike }: PokemonGridProps) => {
   const totalResults = data?.meta?.pagination?.total ?? 0;
 
   const toggleSaved = (id: number) => {
+    if (!authenticated) {
+      infoAlert("Debés iniciar sesión para guardar favoritos");
+      return;
+    }
+
     setSavedIds((prev) => {
       const next = new Set(prev);
 
