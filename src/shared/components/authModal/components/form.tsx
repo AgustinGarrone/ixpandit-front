@@ -1,5 +1,6 @@
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { type Dispatch, type FC, type FormEvent, type SetStateAction, useState } from "react";
+
 import { useAuthClient } from "@/hooks/useAuthClient";
 import { errorAlert, successAlert } from "@/shared/utils/alerts";
 import { getApiErrorMessage } from "@/shared/utils/api-error.utils";
@@ -49,25 +50,22 @@ export const LoginForm: FC<LoginFormProps> = ({ changeMode, layout = "page" }) =
 
     setError(null);
 
-    loginMutation.mutate(
-      validation.data,
-      {
-        onSuccess: () => {
-          void successAlert("¡Sesión iniciada correctamente!").then(() => {
-            window.location.href = "/";
-          });
-        },
-        onError: (mutationError) => {
-          const message = getApiErrorMessage(
-            mutationError,
-            "No pudimos iniciar sesión. Revisá tus credenciales.",
-          );
-
-          setError(message);
-          void errorAlert(message);
-        },
+    loginMutation.mutate(validation.data, {
+      onSuccess: () => {
+        void successAlert("¡Sesión iniciada correctamente!").then(() => {
+          window.location.href = "/";
+        });
       },
-    );
+      onError: (mutationError) => {
+        const message = getApiErrorMessage(
+          mutationError,
+          "No pudimos iniciar sesión. Revisá tus credenciales.",
+        );
+
+        setError(message);
+        void errorAlert(message);
+      },
+    });
   };
 
   if (layout === "page") {
@@ -104,10 +102,7 @@ export const LoginForm: FC<LoginFormProps> = ({ changeMode, layout = "page" }) =
               />
             </AuthField>
 
-            <AuthField
-              label="Contraseña"
-              helperText={`Mínimo ${PASSWORD_MIN_LENGTH}, máximo ${PASSWORD_MAX_LENGTH} caracteres.`}
-            >
+            <AuthField label="Contraseña">
               <AuthInput
                 id="login-password"
                 name="login-password"
@@ -159,10 +154,7 @@ export const LoginForm: FC<LoginFormProps> = ({ changeMode, layout = "page" }) =
         />
       </AuthField>
 
-      <AuthField
-        label="Contraseña"
-        helperText={`Mínimo ${PASSWORD_MIN_LENGTH}, máximo ${PASSWORD_MAX_LENGTH} caracteres.`}
-      >
+      <AuthField label="Contraseña">
         <AuthInput
           id="login-password"
           name="login-password"

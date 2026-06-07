@@ -30,6 +30,11 @@ export const Navbar = () => {
   const authenticated = isAuthenticated();
   const userInfo = authenticated ? (getUserInfo() as DecodeTokenData | null) : null;
 
+  const handleLogout = () => {
+    logout();
+    window.location.reload();
+  };
+
   return (
     <>
       <Box
@@ -71,14 +76,6 @@ export const Navbar = () => {
                 <Text as="span" color="var(--pokemon-yellow)">
                   FINDER
                 </Text>
-              </Text>
-              <Text
-                color="var(--text-muted)"
-                fontSize={{ base: "xs", md: "sm" }}
-                lineHeight="1.3"
-                whiteSpace="nowrap"
-              >
-                Atrapa, entrena y conquista ⚡
               </Text>
             </VStack>
           </HStack>
@@ -135,7 +132,7 @@ export const Navbar = () => {
                   bg="transparent"
                   border="none"
                   flexShrink={0}
-                  onClick={logout}
+                  onClick={handleLogout}
                   _hover={{ bg: "rgba(229, 62, 62, 0.12)" }}
                   _active={{ bg: "rgba(229, 62, 62, 0.16)" }}
                 >

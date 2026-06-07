@@ -22,7 +22,11 @@ const AuthContext = createContext(defaultAuthContext);
 const subscribe = () => () => {};
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const hasHydrated = useSyncExternalStore(subscribe, () => true, () => false);
+  const hasHydrated = useSyncExternalStore(
+    subscribe,
+    () => true,
+    () => false,
+  );
 
   const isAuthenticated = () => {
     if (!hasHydrated) {

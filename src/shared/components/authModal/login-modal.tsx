@@ -1,7 +1,9 @@
 "use client";
 
-import { Dialog, Portal } from "@chakra-ui/react";
+import { Dialog, Flex, Portal } from "@chakra-ui/react";
 import { useState } from "react";
+
+import { CloseIcon } from "@/shared/icons/svg-icons";
 
 import { AUTH_COPY } from "./auth-copy";
 import { AuthModalShell } from "./auth-modal-shell";
@@ -67,25 +69,33 @@ export const LoginModal = ({ open, onOpenChange, initialMode = FormMode.LOGIN }:
             overflow="visible"
           >
             <Dialog.CloseTrigger
+              aria-label="Cerrar modal"
               position="absolute"
               top={{ base: "-10px", md: "-12px" }}
               right={{ base: "-6px", md: "-8px" }}
               zIndex={2}
               w="34px"
               h="34px"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
               borderRadius="full"
               bg="rgba(12, 18, 36, 0.96)"
-              border="1px solid rgba(255, 255, 255, 0.14)"
-              color="var(--text-muted)"
-              fontSize="14px"
+              border="1px solid rgba(255, 255, 255, 0.22)"
+              color="var(--text-primary)"
               boxShadow="0 8px 20px rgba(0, 0, 0, 0.35)"
               transition="all 0.15s ease"
+              cursor="pointer"
               _hover={{
-                bg: "rgba(255, 255, 255, 0.08)",
-                color: "var(--text-primary)",
-                borderColor: "rgba(255, 255, 255, 0.24)",
+                bg: "rgba(255, 255, 255, 0.1)",
+                color: "#ffffff",
+                borderColor: "rgba(255, 255, 255, 0.35)",
               }}
-            />
+            >
+              <Flex align="center" justify="center" w="full" h="full">
+                <CloseIcon />
+              </Flex>
+            </Dialog.CloseTrigger>
 
             <Dialog.Body p={0}>
               <AuthModalShell

@@ -107,7 +107,7 @@ export const MysteryEggNavCard: FC<MysteryEggNavCardProps> = ({ isActive, onClic
             fontWeight="500"
             lineHeight="1.4"
           >
-            Descubre un Pokémon sorpresa ✨
+            Descubre un Pokémon sorpresa
           </Text>
         </VStack>
 
