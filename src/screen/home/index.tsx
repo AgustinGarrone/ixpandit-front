@@ -42,6 +42,7 @@ const ViewPlaceholder = ({ title }: ViewPlaceholderProps) => (
 
 const HomeMainContent = () => {
   const [selectedType, setSelectedType] = useState<string | null>(null);
+  const [nameLike, setNameLike] = useState<string | null>(null);
   const { activeView } = useHomeView();
   const { isAuthenticated } = useAuth();
   const authenticated = isAuthenticated();
@@ -60,11 +61,16 @@ const HomeMainContent = () => {
       {showSearch ? (
         <>
           <Box flexShrink={0} w="full" minW={0}>
-            <Searcher selectedType={selectedType} onTypeChange={setSelectedType} />
+            <Searcher
+              selectedType={selectedType}
+              nameLike={nameLike}
+              onNameLikeChange={setNameLike}
+              onTypeChange={setSelectedType}
+            />
           </Box>
 
           <Box flex="1" minH={0} minW={0} display="flex" flexDirection="column">
-            <PokemonGrid selectedType={selectedType} />
+            <PokemonGrid selectedType={selectedType} nameLike={nameLike} />
           </Box>
         </>
       ) : null}

@@ -15,9 +15,10 @@ const GRID_COLUMNS = { base: 2, md: 3, xl: 4 };
 
 type PokemonGridProps = {
   selectedType: string | null;
+  nameLike: string | null;
 };
 
-export const PokemonGrid = ({ selectedType }: PokemonGridProps) => {
+export const PokemonGrid = ({ selectedType, nameLike }: PokemonGridProps) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [savedIds, setSavedIds] = useState<Set<number>>(() => new Set());
   const [prevSelectedType, setPrevSelectedType] = useState(selectedType);
@@ -31,6 +32,7 @@ export const PokemonGrid = ({ selectedType }: PokemonGridProps) => {
     page: currentPage,
     limit: PAGE_SIZE,
     ...(selectedType ? { type: selectedType } : {}),
+    ...(nameLike ? { nameLike: nameLike.toLowerCase() } : {}),
   });
 
   const pokemons = data?.data ?? [];
