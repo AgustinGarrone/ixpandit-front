@@ -53,17 +53,17 @@ const PaginatorButton: FC<{
     h={{ base: "28px", md: "32px" }}
     px={0}
     borderRadius="8px"
-    bg={isActive ? "var(--pokemon-yellow)" : "var(--glass-bg-light)"}
-    color={isActive ? "#0a0a0a" : "var(--text-primary)"}
+    bg={isActive ? "var(--accent-purple)" : "var(--glass-bg-light)"}
+    color={isActive ? "var(--text-primary)" : "var(--text-primary)"}
     border="1px solid"
-    borderColor={isActive ? "var(--pokemon-yellow)" : "var(--glass-border)"}
+    borderColor={isActive ? "var(--accent-purple)" : "var(--glass-border)"}
     fontSize={{ base: "7px", md: "8px" }}
     letterSpacing="0.06em"
     disabled={disabled}
     onClick={onClick}
     _hover={{
-      bg: isActive ? "var(--pokemon-yellow-hover)" : "var(--glass-bg-hover)",
-      borderColor: isActive ? "var(--pokemon-yellow-hover)" : "var(--glass-border-hover)",
+      bg: isActive ? "var(--accent-purple-hover)" : "var(--glass-bg-hover)",
+      borderColor: isActive ? "var(--accent-purple-hover)" : "var(--glass-border-hover)",
     }}
     _disabled={{
       opacity: 0.4,

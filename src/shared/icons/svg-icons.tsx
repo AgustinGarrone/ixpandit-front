@@ -131,6 +131,20 @@ export const ChevronDownIcon = () => (
   </Box>
 );
 
+export const StarSaveIcon = ({ filled = false }: { filled?: boolean }) => (
+  <Box as="span" display="inline-flex" flexShrink={0}>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M12 2.25l2.63 5.33 5.88.85-4.25 4.14 1 5.86L12 16.02l-5.26 2.41 1-5.86-4.25-4.14 5.88-.85L12 2.25z"
+        fill={filled ? "#ffcb05" : "none"}
+        stroke={filled ? "#ffcb05" : "var(--text-muted)"}
+        strokeWidth="1.75"
+        strokeLinejoin="round"
+      />
+    </svg>
+  </Box>
+);
+
 export const StarFeatureIcon = () => (
   <Box as="span" display="inline-flex" flexShrink={0}>
     <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
