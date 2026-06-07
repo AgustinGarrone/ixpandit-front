@@ -1,9 +1,19 @@
 import "./globals.css";
 
+import type { Metadata } from "next";
 import { Press_Start_2P } from "next/font/google";
 
 import bgImage from "../../public/bg-home.png";
 import { Providers } from "./providers";
+
+export const metadata: Metadata = {
+  title: "IXP Pokémon",
+  icons: {
+    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
+};
 
 const pressStartFont = Press_Start_2P({
   style: "normal",
