@@ -1,6 +1,6 @@
 "use client";
 import { jwtDecode, type JwtPayload } from "jwt-decode";
-import { createContext, type ReactNode, useContext } from "react";
+import { createContext, type ReactNode, useContext, useSyncExternalStore } from "react";
 
 import { type DecodeTokenData } from "@/shared/types/api/auth.types";
 import { checkLocalStorage } from "@/shared/utils/localStorage.utils";
@@ -10,6 +10,7 @@ interface AuthProviderProps {
 }
 
 const defaultAuthContext = {
+  hasHydrated: false,
   isAuthenticated: () => false,
   userHasInitialPokemons: () => false,
   getToken: () => "",
@@ -19,8 +20,16 @@ const defaultAuthContext = {
 
 const AuthContext = createContext(defaultAuthContext);
 
+const subscribe = () => () => {};
+
 export const AuthProvider = ({ children }: AuthProviderProps) => {
+  const hasHydrated = useSyncExternalStore(subscribe, () => true, () => false);
+
   const isAuthenticated = () => {
+    if (!hasHydrated) {
+      return false;
+    }
+
     if (checkLocalStorage()) {
       const token = localStorage.getItem("accessToken");
       if (token) {
@@ -37,6 +46,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   const userHasInitialPokemons = () => {
+    if (!hasHydrated) {
+      return false;
+    }
+
     if (checkLocalStorage()) {
       const initialPokemons = localStorage.getItem("initialPokemons");
       if (initialPokemons === "true") {
@@ -47,6 +60,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   const getToken = () => {
+    if (!hasHydrated) {
+      return "";
+    }
+
     if (checkLocalStorage()) {
       const token = localStorage.getItem("accessToken");
       if (token) {
@@ -57,6 +74,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   const getUserInfo = (): DecodeTokenData | null => {
+    if (!hasHydrated) {
+      return null;
+    }
+
     if (checkLocalStorage()) {
       const token = localStorage.getItem("accessToken");
       if (token) {
@@ -82,6 +103,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   const authContextValue = {
+    hasHydrated,
     isAuthenticated,
     userHasInitialPokemons,
     getToken,
