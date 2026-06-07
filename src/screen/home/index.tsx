@@ -75,10 +75,6 @@ const HomeMainContent = () => {
         </>
       ) : null}
 
-      {authenticated && activeView === HomeView.FAVORITES ? (
-        <ViewPlaceholder title="Favoritos" />
-      ) : null}
-
       {authenticated && activeView === HomeView.MYSTERY_EGG ? (
         <ViewPlaceholder title="Huevo Misterioso" />
       ) : null}

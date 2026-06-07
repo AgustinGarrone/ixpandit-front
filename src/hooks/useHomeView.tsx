@@ -4,7 +4,6 @@ import { createContext, type ReactNode, useCallback, useContext, useState } from
 
 export enum HomeView {
   SEARCH = "search",
-  FAVORITES = "favorites",
   MYSTERY_EGG = "mystery_egg",
 }
 

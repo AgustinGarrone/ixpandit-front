@@ -8,10 +8,15 @@ import { type Pokemon } from "@/shared/types/api/models";
 import { type ListPokemonQuery } from "@/shared/types/api/pokemon.types";
 import { type ApiRequestError } from "@/shared/utils/api-error.utils";
 
-export const usePokemonList = (query: ListPokemonQuery = {}) =>
+type UsePokemonListOptions = {
+  enabled?: boolean;
+};
+
+export const usePokemonList = (query: ListPokemonQuery = {}, options: UsePokemonListOptions = {}) =>
   useQuery({
     queryKey: pokemonKeys.list(query),
     queryFn: () => pokemonClient.findAll(query),
+    enabled: options.enabled ?? true,
   });
 
 export const usePokemonTypes = () =>

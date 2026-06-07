@@ -4,7 +4,7 @@ import { Box, Button, HStack, Text, VStack } from "@chakra-ui/react";
 import { type FC, type ReactNode } from "react";
 
 import { HomeView, useHomeView } from "@/hooks/useHomeView";
-import { EggFeatureIcon, SearchIcon, StarFeatureIcon } from "@/shared/icons/svg-icons";
+import { EggFeatureIcon, SearchIcon } from "@/shared/icons/svg-icons";
 
 type NavMenuItem = {
   view: HomeView;
@@ -21,11 +21,6 @@ const NAV_ITEMS: NavMenuItem[] = [
         <SearchIcon />
       </Box>
     ),
-  },
-  {
-    view: HomeView.FAVORITES,
-    label: "Favoritos",
-    icon: <StarFeatureIcon />,
   },
   {
     view: HomeView.MYSTERY_EGG,

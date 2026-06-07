@@ -1,6 +1,7 @@
-import { Box, Button, Flex } from "@chakra-ui/react";
-import { type FC } from "react";
-import { type ReactNode } from "react";
+import { Box, Button, Flex, HStack } from "@chakra-ui/react";
+import { type FC, type ReactNode } from "react";
+
+import { StarSaveIcon } from "@/shared/icons/svg-icons";
 
 const SKELETON_COUNT = 6;
 
@@ -44,6 +45,37 @@ type FilterPillProps = {
   isActive: boolean;
   onClick: () => void;
 };
+
+type FavoritesFilterPillProps = {
+  isActive: boolean;
+  onClick: () => void;
+};
+
+export const FavoritesFilterPill: FC<FavoritesFilterPillProps> = ({ isActive, onClick }) => (
+  <Button
+    h="36px"
+    px={4}
+    borderRadius="999px"
+    fontSize="sm"
+    fontWeight="700"
+    flexShrink={0}
+    bg={isActive ? "var(--pokemon-yellow)" : "rgba(255, 203, 5, 0.1)"}
+    color={isActive ? "#0a0a0a" : "var(--pokemon-yellow)"}
+    border="1px solid"
+    borderColor={isActive ? "var(--pokemon-yellow)" : "rgba(255, 203, 5, 0.45)"}
+    boxShadow={isActive ? "var(--shadow-yellow)" : "0 0 16px rgba(255, 203, 5, 0.12)"}
+    onClick={onClick}
+    _hover={{
+      bg: isActive ? "var(--pokemon-yellow-hover)" : "rgba(255, 203, 5, 0.18)",
+      borderColor: isActive ? "var(--pokemon-yellow-hover)" : "rgba(255, 203, 5, 0.6)",
+    }}
+  >
+    <HStack gap={1.5}>
+      <StarSaveIcon filled={isActive} />
+      <span>Favoritos</span>
+    </HStack>
+  </Button>
+);
 
 export const FilterPill: FC<FilterPillProps> = ({ label, isActive, onClick }) => (
   <Button

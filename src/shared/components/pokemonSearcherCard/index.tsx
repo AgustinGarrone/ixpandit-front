@@ -20,6 +20,7 @@ type PokemonSearcherCardProps = {
   type: string;
   abilities?: string[];
   isSaved?: boolean;
+  isSaveLoading?: boolean;
   onToggleSave?: () => void;
 };
 
@@ -104,6 +105,7 @@ export const PokemonSearcherCard: FC<PokemonSearcherCardProps> = ({
   type,
   abilities = [],
   isSaved = false,
+  isSaveLoading = false,
   onToggleSave,
 }) => {
   const types = mapPokemonTypes(type);
@@ -201,10 +203,19 @@ export const PokemonSearcherCard: FC<PokemonSearcherCardProps> = ({
               minW="30px"
               p={0}
               borderRadius="10px"
-              bg="rgba(255, 255, 255, 0.04)"
-              border="1px solid rgba(255, 255, 255, 0.08)"
+              bg={isSaved ? "rgba(255, 203, 5, 0.14)" : "rgba(255, 255, 255, 0.04)"}
+              border={
+                isSaved
+                  ? "1px solid rgba(255, 203, 5, 0.5)"
+                  : "1px solid rgba(255, 255, 255, 0.08)"
+              }
+              loading={isSaveLoading}
+              disabled={isSaveLoading}
               onClick={onToggleSave}
-              _hover={{ bg: "rgba(255, 255, 255, 0.1)" }}
+              boxShadow={isSaved ? "0 0 14px rgba(255, 203, 5, 0.22)" : undefined}
+              _hover={{
+                bg: isSaved ? "rgba(255, 203, 5, 0.22)" : "rgba(255, 255, 255, 0.1)",
+              }}
             >
               <StarSaveIcon filled={isSaved} />
             </Button>
