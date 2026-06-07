@@ -130,3 +130,58 @@ export const ChevronDownIcon = () => (
     </svg>
   </Box>
 );
+
+export const StarFeatureIcon = () => (
+  <Box as="span" display="inline-flex" flexShrink={0}>
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M12 2.25l2.63 5.33 5.88.85-4.25 4.14 1 5.86L12 16.02l-5.26 2.41 1-5.86-4.25-4.14 5.88-.85L12 2.25z"
+        fill="#ffcb05"
+      />
+    </svg>
+  </Box>
+);
+
+export const TeamFeatureIcon = () => (
+  <Box as="span" display="inline-flex" flexShrink={0}>
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="8.25" cy="7.75" r="3" fill="#3ab7ff" />
+      <circle cx="16.25" cy="8.75" r="2.5" fill="#3ab7ff" />
+      <path
+        d="M2.75 19.25c0-2.9 2.46-5.25 5.5-5.25s5.5 2.35 5.5 5.25"
+        fill="#3ab7ff"
+      />
+      <path
+        d="M14.25 18.5c0-1.88 1.4-3.4 3.15-3.4 1.35 0 2.5.82 2.98 1.98"
+        stroke="#3ab7ff"
+        strokeWidth="2.1"
+        strokeLinecap="round"
+      />
+    </svg>
+  </Box>
+);
+
+export const EggFeatureIcon = () => (
+  <Box as="span" display="inline-flex" flexShrink={0}>
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M12 3c-3.95 0-7 4.55-7 9.25 0 3.58 3.13 6.5 7 6.5s7-2.92 7-6.5C19 7.55 15.95 3 12 3z"
+        fill="#c4b5fd"
+      />
+      <circle cx="10" cy="11" r="1.05" fill="#7c3aed" />
+      <circle cx="13.5" cy="13.25" r="0.95" fill="#7c3aed" />
+      <circle cx="11.25" cy="15.5" r="0.8" fill="#7c3aed" />
+      <circle cx="14.1" cy="10.35" r="0.7" fill="#7c3aed" />
+    </svg>
+  </Box>
+);
+
+export const PokeballOutlineIcon = () => (
+  <Box as="span" display="inline-flex" flexShrink={0}>
+    <svg width="62" height="62" viewBox="0 0 62 62" fill="none" aria-hidden="true">
+      <circle cx="31" cy="31" r="26" stroke="#1c2c4e" strokeWidth="1.75" />
+      <path d="M5 31h52" stroke="#1c2c4e" strokeWidth="1.75" />
+      <circle cx="31" cy="31" r="8" stroke="#1c2c4e" strokeWidth="1.75" />
+    </svg>
+  </Box>
+);

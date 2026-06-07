@@ -16,14 +16,14 @@ export const Searcher: FC<SearcherProps> = ({ selectedType, onTypeChange }) => {
   const [query, setQuery] = useState("");
 
   return (
-    <VStack align="stretch" gap={{ base: 4, md: 5 }} w="full">
-      <HStack align="center" gap={3}>
-        <Box flexShrink={0} transform="scale(1.05)" transformOrigin="center">
+    <VStack align="stretch" gap={{ base: 2.5, md: 3 }} w="full" minW={0}>
+      <HStack align="center" gap={2.5}>
+        <Box flexShrink={0} transform="scale(1)" transformOrigin="center">
           <PokeballIcon />
         </Box>
         <Text
           color="var(--text-primary)"
-          fontSize={{ base: "lg", md: "xl" }}
+          fontSize={{ base: "md", md: "lg" }}
           fontWeight="700"
           lineHeight="1.3"
         >
@@ -34,25 +34,29 @@ export const Searcher: FC<SearcherProps> = ({ selectedType, onTypeChange }) => {
       <Box
         bg="var(--bg-secondary)"
         border="1px solid rgba(255, 255, 255, 0.08)"
-        borderRadius="20px"
-        p={{ base: 4, md: 5 }}
+        borderRadius="16px"
+        p={{ base: 3, md: 3.5 }}
+        w="full"
+        minW={0}
       >
-        <VStack align="stretch" gap={4}>
+        <VStack align="stretch" gap={3}>
           <Flex
             align="stretch"
             direction={{ base: "column", sm: "row" }}
-            gap={3}
+            gap={2}
             bg="rgba(0, 0, 0, 0.28)"
             border="1px solid rgba(255, 255, 255, 0.08)"
-            borderRadius="16px"
-            p={2}
+            borderRadius="12px"
+            p={1.5}
+            minW={0}
           >
-            <Flex align="center" flex={1} gap={3} px={3} minW={0}>
+            <Flex align="center" flex={1} gap={2.5} px={2.5} minW={0}>
               <SearchIcon />
               <Input
                 unstyled
                 flex={1}
-                h={{ base: "44px", md: "48px" }}
+                minW={0}
+                h={{ base: "40px", md: "42px" }}
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
                 placeholder="Ingresá el nombre a buscar"
@@ -63,10 +67,10 @@ export const Searcher: FC<SearcherProps> = ({ selectedType, onTypeChange }) => {
             </Flex>
 
             <Button
-              h={{ base: "44px", md: "48px" }}
-              minW={{ base: "full", sm: "132px" }}
-              px={5}
-              borderRadius="12px"
+              h={{ base: "40px", md: "42px" }}
+              minW={{ base: "full", sm: "120px" }}
+              px={4}
+              borderRadius="10px"
               bg="var(--pokemon-yellow)"
               color="#0a0a0a"
               fontSize={{ base: "sm", md: "md" }}

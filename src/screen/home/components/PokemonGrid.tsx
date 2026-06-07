@@ -52,11 +52,12 @@ export const PokemonGrid = ({ selectedType }: PokemonGridProps) => {
     <VStack
       className="glass glass-panel"
       align="stretch"
-      gap={{ base: 6, md: 8 }}
+      gap={{ base: 4, md: 5 }}
       w="full"
+      minW={0}
       h="full"
       minH={0}
-      p={{ base: 5, md: 6 }}
+      p={{ base: 4, md: 5 }}
       overflow="hidden"
     >
       <HStack gap={3}>
