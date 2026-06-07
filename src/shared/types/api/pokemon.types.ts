@@ -14,3 +14,4 @@ export type PokemonType = {
 
 export type PokemonListResponse = JSendSuccess<Pokemon[]>;
 export type PokemonTypesResponse = JSendSuccess<PokemonType[]>;
+export type PokemonRandomResponse = JSendSuccess<Pokemon>;

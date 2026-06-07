@@ -27,6 +27,6 @@ export const usePokemonTypes = () =>
   });
 
 export const useRandomPokemon = () =>
-  useMutation<Pokemon, ApiRequestError, number[]>({
-    mutationFn: (excludeIds) => pokemonClient.getRandomPokemon(excludeIds),
+  useMutation<Pokemon, ApiRequestError, void>({
+    mutationFn: () => pokemonClient.getRandomPokemon(),
   });

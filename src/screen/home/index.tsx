@@ -1,11 +1,12 @@
 "use client";
 
-import { Box, Flex, Text, VStack } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 
 import { useAuth } from "@/hooks/useAuth";
 import { HomeView, useHomeView } from "@/hooks/useHomeView";
+import { MysteryEggPanel } from "@/screen/home/components/mysteryEgg";
 import { PokemonGrid } from "@/screen/home/components/PokemonGrid";
 import { Footer } from "@/shared/components/footer";
 import { NavbarSkeleton } from "@/shared/components/navbar-skeleton";
@@ -15,29 +16,6 @@ import { VerticalNavbar } from "@/shared/components/verticalNavbar";
 const Navbar = dynamic(
   () => import("@/shared/components/navbar").then((mod) => ({ default: mod.Navbar })),
   { ssr: false, loading: () => <NavbarSkeleton /> },
-);
-
-type ViewPlaceholderProps = {
-  title: string;
-};
-
-const ViewPlaceholder = ({ title }: ViewPlaceholderProps) => (
-  <VStack
-    className="glass glass-panel"
-    align="center"
-    justify="center"
-    flex="1"
-    minH={0}
-    p={8}
-    gap={2}
-  >
-    <Text color="var(--text-primary)" fontSize="md" fontWeight="700">
-      {title}
-    </Text>
-    <Text color="var(--text-muted)" fontSize="sm" textAlign="center">
-      Esta sección estará disponible pronto.
-    </Text>
-  </VStack>
 );
 
 const HomeMainContent = () => {
@@ -75,9 +53,7 @@ const HomeMainContent = () => {
         </>
       ) : null}
 
-      {authenticated && activeView === HomeView.MYSTERY_EGG ? (
-        <ViewPlaceholder title="Huevo Misterioso" />
-      ) : null}
+      {authenticated && activeView === HomeView.MYSTERY_EGG ? <MysteryEggPanel /> : null}
     </Flex>
   );
 };

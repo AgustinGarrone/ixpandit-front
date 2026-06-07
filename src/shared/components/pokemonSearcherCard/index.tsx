@@ -3,11 +3,7 @@
 import { Box, Button, Flex, HStack, Image, Popover, Text, VStack } from "@chakra-ui/react";
 import { type FC } from "react";
 
-import {
-  formatPokemonId,
-  typeLabels,
-  typeSolidColors,
-} from "@/shared/constants/pokemon.constants";
+import { formatPokemonId, typeLabels, typeSolidColors } from "@/shared/constants/pokemon.constants";
 import { InfoIcon, StarSaveIcon } from "@/shared/icons/svg-icons";
 import { mapPokemonTypes } from "@/shared/utils/pokemon.utils";
 
@@ -58,12 +54,7 @@ type AbilitiesPanelProps = {
 
 const AbilitiesPanel: FC<AbilitiesPanelProps> = ({ abilities, glowColor }) => (
   <VStack align="stretch" gap={2}>
-    <Text
-      color="var(--text-muted)"
-      fontSize="9px"
-      fontWeight="700"
-      letterSpacing="0.12em"
-    >
+    <Text color="var(--text-muted)" fontSize="9px" fontWeight="700" letterSpacing="0.12em">
       HABILIDADES
     </Text>
 
@@ -79,12 +70,7 @@ const AbilitiesPanel: FC<AbilitiesPanelProps> = ({ abilities, glowColor }) => (
               boxShadow={`0 0 8px ${glowColor}`}
               flexShrink={0}
             />
-            <Text
-              color="var(--text-primary)"
-              fontSize="11px"
-              fontWeight="600"
-              lineHeight="1.35"
-            >
+            <Text color="var(--text-primary)" fontSize="11px" fontWeight="600" lineHeight="1.35">
               {formatAbilityName(ability)}
             </Text>
           </HStack>
@@ -195,30 +181,32 @@ export const PokemonSearcherCard: FC<PokemonSearcherCardProps> = ({
               </Popover.Root>
             ) : null}
 
-            <Button
-              aria-label={isSaved ? "Quitar de favoritos" : "Guardar en favoritos"}
-              flexShrink={0}
-              w="30px"
-              h="30px"
-              minW="30px"
-              p={0}
-              borderRadius="10px"
-              bg={isSaved ? "rgba(255, 203, 5, 0.14)" : "rgba(255, 255, 255, 0.04)"}
-              border={
-                isSaved
-                  ? "1px solid rgba(255, 203, 5, 0.5)"
-                  : "1px solid rgba(255, 255, 255, 0.08)"
-              }
-              loading={isSaveLoading}
-              disabled={isSaveLoading}
-              onClick={onToggleSave}
-              boxShadow={isSaved ? "0 0 14px rgba(255, 203, 5, 0.22)" : undefined}
-              _hover={{
-                bg: isSaved ? "rgba(255, 203, 5, 0.22)" : "rgba(255, 255, 255, 0.1)",
-              }}
-            >
-              <StarSaveIcon filled={isSaved} />
-            </Button>
+            {onToggleSave ? (
+              <Button
+                aria-label={isSaved ? "Quitar de favoritos" : "Guardar en favoritos"}
+                flexShrink={0}
+                w="30px"
+                h="30px"
+                minW="30px"
+                p={0}
+                borderRadius="10px"
+                bg={isSaved ? "rgba(255, 203, 5, 0.14)" : "rgba(255, 255, 255, 0.04)"}
+                border={
+                  isSaved
+                    ? "1px solid rgba(255, 203, 5, 0.5)"
+                    : "1px solid rgba(255, 255, 255, 0.08)"
+                }
+                loading={isSaveLoading}
+                disabled={isSaveLoading}
+                onClick={onToggleSave}
+                boxShadow={isSaved ? "0 0 14px rgba(255, 203, 5, 0.22)" : undefined}
+                _hover={{
+                  bg: isSaved ? "rgba(255, 203, 5, 0.22)" : "rgba(255, 255, 255, 0.1)",
+                }}
+              >
+                <StarSaveIcon filled={isSaved} />
+              </Button>
+            ) : null}
           </HStack>
         </Flex>
 

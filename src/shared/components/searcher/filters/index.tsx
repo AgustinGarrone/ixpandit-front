@@ -39,10 +39,7 @@ export const Filters: FC<FiltersProps> = ({ value, onChange }) => {
   return (
     <Box>
       <FilterRow expanded={false}>
-        <FavoritesFilterPill
-          isActive={value === FAVORITES_FILTER}
-          onClick={handleFavoritesClick}
-        />
+        <FavoritesFilterPill isActive={value === FAVORITES_FILTER} onClick={handleFavoritesClick} />
 
         <FilterPill label="Todos" isActive={value === null} onClick={() => onChange(null)} />
 
