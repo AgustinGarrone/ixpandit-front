@@ -235,7 +235,7 @@ export const PokemonGrid = ({ selectedType, nameLike }: PokemonGridProps) => {
         ) : null}
       </HStack>
 
-      <Box flex="1" minH={0} overflow="auto">
+      <Box className="glass-scrollbar pokemon-grid-scroll" flex="1" minH={0} overflow="auto">
         {isLoading ? (
           <SimpleGrid columns={GRID_COLUMNS} gap={3}>
             {Array.from({ length: PAGE_SIZE }).map((_, index) => (

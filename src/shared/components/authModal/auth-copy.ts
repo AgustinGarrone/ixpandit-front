@@ -2,15 +2,15 @@ import { FormMode } from "./form-mode";
 
 export const AUTH_COPY = {
   [FormMode.LOGIN]: {
-    title: "INICIAR SESIÓN",
-    description: "Ingresá con tu email y contraseña para acceder a tu cuenta.",
+    title: "Iniciá sesión",
+    description: "Ingresá con tu email y contraseña para guardar favoritos y abrir huevos misteriosos.",
     footerPrompt: "¿No tenés cuenta?",
-    footerAction: "Registrate",
+    footerAction: "Crear cuenta",
   },
   [FormMode.REGISTER]: {
-    title: "CREAR CUENTA",
-    description: "Completá tus datos para registrarte en IXP-POK-FRONT.",
+    title: "Creá tu cuenta",
+    description: "Registrate para explorar el catálogo, guardar Pokémon y vivir la aventura.",
     footerPrompt: "¿Ya tenés cuenta?",
-    footerAction: "Iniciá sesión",
+    footerAction: "Iniciar sesión",
   },
 } as const;

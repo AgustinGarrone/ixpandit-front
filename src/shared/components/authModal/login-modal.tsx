@@ -1,9 +1,10 @@
 "use client";
 
-import { Dialog, Portal, Text } from "@chakra-ui/react";
+import { Dialog, Portal } from "@chakra-ui/react";
 import { useState } from "react";
 
 import { AUTH_COPY } from "./auth-copy";
+import { AuthModalShell } from "./auth-modal-shell";
 import { LoginForm } from "./components/form";
 import { RegisterForm } from "./components/registerForm";
 import { FormMode } from "./form-mode";
@@ -49,67 +50,59 @@ export const LoginModal = ({ open, onOpenChange, initialMode = FormMode.LOGIN }:
       restoreFocus={false}
     >
       <Portal>
-        <Dialog.Backdrop bg="rgba(4, 12, 24, 0.72)" backdropFilter="blur(6px)" />
-        <Dialog.Positioner p={4}>
+        <Dialog.Backdrop
+          bg="rgba(4, 10, 22, 0.78)"
+          backdropFilter="blur(10px)"
+          className="auth-modal-backdrop"
+        />
+        <Dialog.Positioner p={{ base: 4, md: 6 }}>
           <Dialog.Content
-            className="glass glass-panel"
-            maxW="440px"
+            className="glass glass-panel auth-modal-content"
+            maxW="480px"
             w="full"
-            p={{ base: 5, md: 6 }}
-            bg="rgba(var(--glass-color-rgb), 0.92)"
+            p={{ base: 4, md: 5 }}
+            bg="rgba(8, 14, 30, 0.94)"
+            border="1px solid rgba(124, 58, 237, 0.28)"
+            boxShadow="0 24px 64px rgba(0, 0, 0, 0.55), 0 0 40px rgba(124, 58, 237, 0.16)"
+            overflow="visible"
           >
-            <Dialog.Header p={0} mb={5}>
-              <Dialog.Title>
-                <Text
-                  color="var(--text-primary)"
-                  fontSize={{ base: "12px", md: "14px" }}
-                  letterSpacing="0.1em"
-                >
-                  {copy.title}
-                </Text>
-              </Dialog.Title>
-              <Dialog.Description mt={2}>
-                <Text
-                  color="var(--text-muted)"
-                  fontSize="8px"
-                  letterSpacing="0.06em"
-                  lineHeight="1.6"
-                >
-                  {copy.description}
-                </Text>
-              </Dialog.Description>
-            </Dialog.Header>
-
-            <Dialog.Body p={0}>
-              {formMode === FormMode.LOGIN ? (
-                <LoginForm key="login" changeMode={setFormMode} layout="modal" />
-              ) : (
-                <RegisterForm key="register" changeMode={setFormMode} layout="modal" />
-              )}
-            </Dialog.Body>
-
-            <Dialog.Footer p={0} mt={5} justifyContent="center">
-              <Text color="var(--text-muted)" fontSize="8px" letterSpacing="0.06em">
-                {copy.footerPrompt}{" "}
-                <Text
-                  as="span"
-                  color="var(--pokemon-yellow)"
-                  cursor="pointer"
-                  onClick={switchMode}
-                  _hover={{ textDecoration: "underline" }}
-                >
-                  {copy.footerAction}
-                </Text>
-              </Text>
-            </Dialog.Footer>
-
             <Dialog.CloseTrigger
               position="absolute"
-              top={3}
-              right={3}
+              top={{ base: "-10px", md: "-12px" }}
+              right={{ base: "-6px", md: "-8px" }}
+              zIndex={2}
+              w="34px"
+              h="34px"
+              borderRadius="full"
+              bg="rgba(12, 18, 36, 0.96)"
+              border="1px solid rgba(255, 255, 255, 0.14)"
               color="var(--text-muted)"
-              fontSize="12px"
+              fontSize="14px"
+              boxShadow="0 8px 20px rgba(0, 0, 0, 0.35)"
+              transition="all 0.15s ease"
+              _hover={{
+                bg: "rgba(255, 255, 255, 0.08)",
+                color: "var(--text-primary)",
+                borderColor: "rgba(255, 255, 255, 0.24)",
+              }}
             />
+
+            <Dialog.Body p={0}>
+              <AuthModalShell
+                mode={formMode}
+                title={copy.title}
+                description={copy.description}
+                footerPrompt={copy.footerPrompt}
+                footerAction={copy.footerAction}
+                onSwitchMode={switchMode}
+              >
+                {formMode === FormMode.LOGIN ? (
+                  <LoginForm key="login" changeMode={setFormMode} layout="modal" />
+                ) : (
+                  <RegisterForm key="register" changeMode={setFormMode} layout="modal" />
+                )}
+              </AuthModalShell>
+            </Dialog.Body>
           </Dialog.Content>
         </Dialog.Positioner>
       </Portal>

@@ -1,4 +1,4 @@
-import { Alert, Button, Field, Flex, Input, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { type Dispatch, type FC, type FormEvent, type SetStateAction, useState } from "react";
 import { z } from "zod";
 
@@ -8,6 +8,13 @@ import { getApiErrorMessage } from "@/shared/utils/api-error.utils";
 import { playSound } from "@/shared/utils/fx";
 
 import { FormMode } from "../form-mode";
+import {
+  AuthErrorAlert,
+  AuthField,
+  AuthFormLayout,
+  AuthInput,
+  AuthSubmitButton,
+} from "./auth-form-ui";
 import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH, registerSchema } from "./form.schemas";
 
 type RegisterFormProps = {
@@ -58,91 +65,74 @@ export const RegisterForm: FC<RegisterFormProps> = ({ changeMode, layout = "page
     );
   };
 
-  return (
-    <Flex
-      w={layout === "page" ? "30%" : "full"}
-      h={layout === "page" ? "95%" : "auto"}
-      direction="column"
-      alignItems="center"
-      justifyContent="center"
-      bg={layout === "page" ? "rgba(255, 255, 255, 0.1)" : "transparent"}
-      backdropFilter={layout === "page" ? "blur(2px)" : undefined}
-      border={layout === "page" ? "1px solid rgba(255, 255, 255, 0.18)" : undefined}
-      borderRadius={layout === "page" ? "16px" : undefined}
-      boxShadow={layout === "page" ? "0 4px 30px rgba(0, 0, 0, 0.1)" : undefined}
-    >
-      {layout === "page" ? (
+  if (layout === "page") {
+    return (
+      <Flex
+        w="30%"
+        h="95%"
+        direction="column"
+        alignItems="center"
+        justifyContent="center"
+        bg="rgba(255, 255, 255, 0.1)"
+        backdropFilter="blur(2px)"
+        border="1px solid rgba(255, 255, 255, 0.18)"
+        borderRadius="16px"
+        boxShadow="0 4px 30px rgba(0, 0, 0, 0.1)"
+      >
         <Text fontSize="2rem" fontWeight="bold">
           ¡Regístrate!
         </Text>
-      ) : null}
 
-      {error ? (
-        <Alert.Root
-          status="error"
-          mb={4}
-          h="4em"
-          borderRadius="md"
-          width={layout === "page" ? "80%" : "100%"}
-        >
-          <Alert.Indicator />
-          <Alert.Content>
-            <Alert.Title>{error}</Alert.Title>
-          </Alert.Content>
-        </Alert.Root>
-      ) : null}
+        {error ? <AuthErrorAlert message={error} /> : null}
 
-      <form
-        style={{
-          textAlign: "center",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          flexDirection: "column",
-        }}
-        onSubmit={handleSubmit}
-      >
-        <Field.Root width={layout === "page" ? "80%" : "100%"} mt={4}>
-          <Field.Label>Nombre de usuario</Field.Label>
-          <Input
-            type="text"
-            variant="subtle"
-            value={username}
-            onChange={(event) => setUsername(event.target.value)}
-          />
-        </Field.Root>
+        <Box w="80%" mt={4}>
+          <AuthFormLayout name="register-form" onSubmit={handleSubmit}>
+            <AuthField label="Nombre de usuario">
+              <AuthInput
+                id="register-username"
+                name="register-username"
+                type="text"
+                autoComplete="nickname"
+                value={username}
+                placeholder="AshKetchum"
+                onChange={(event) => setUsername(event.target.value)}
+              />
+            </AuthField>
 
-        <Field.Root width={layout === "page" ? "80%" : "100%"} mt={4}>
-          <Field.Label>Email</Field.Label>
-          <Input
-            type="email"
-            variant="subtle"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-          />
-          <Field.HelperText>Nunca compartiremos tu email.</Field.HelperText>
-        </Field.Root>
+            <AuthField label="Email" helperText="Nunca compartiremos tu email.">
+              <AuthInput
+                id="register-email"
+                name="register-email"
+                type="email"
+                autoComplete="email"
+                value={email}
+                placeholder="tu@email.com"
+                onChange={(event) => setEmail(event.target.value)}
+              />
+            </AuthField>
 
-        <Field.Root width={layout === "page" ? "80%" : "100%"} mt={4}>
-          <Field.Label>Contraseña</Field.Label>
-          <Input
-            variant="subtle"
-            type="password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value.slice(0, PASSWORD_MAX_LENGTH))}
-            minLength={PASSWORD_MIN_LENGTH}
-            maxLength={PASSWORD_MAX_LENGTH}
-            pattern=".{6,15}"
-          />
-          <Field.HelperText>Mínimo {PASSWORD_MIN_LENGTH}, máximo {PASSWORD_MAX_LENGTH} caracteres.</Field.HelperText>
-        </Field.Root>
+            <AuthField
+              label="Contraseña"
+              helperText={`Mínimo ${PASSWORD_MIN_LENGTH}, máximo ${PASSWORD_MAX_LENGTH} caracteres.`}
+            >
+              <AuthInput
+                id="register-password"
+                name="register-password"
+                type="password"
+                autoComplete="new-password"
+                value={password}
+                placeholder="Ingresá una contraseña"
+                onChange={(event) => setPassword(event.target.value.slice(0, PASSWORD_MAX_LENGTH))}
+                minLength={PASSWORD_MIN_LENGTH}
+                maxLength={PASSWORD_MAX_LENGTH}
+                pattern=".{6,15}"
+              />
+            </AuthField>
 
-        <Button type="submit" mt={6} colorPalette="blue" loading={registerMutation.isPending}>
-          Registrarse
-        </Button>
-      </form>
+            <AuthSubmitButton loading={registerMutation.isPending}>Crear cuenta</AuthSubmitButton>
+          </AuthFormLayout>
+        </Box>
 
-      {layout === "page" ? (
         <Flex mt={8} direction="column" alignItems="center" justifyContent="center">
           <Text mt={4}>¿Ya tienes una cuenta? </Text>
           <Button
@@ -156,7 +146,57 @@ export const RegisterForm: FC<RegisterFormProps> = ({ changeMode, layout = "page
             Iniciar sesión
           </Button>
         </Flex>
-      ) : null}
-    </Flex>
+      </Flex>
+    );
+  }
+
+  return (
+    <AuthFormLayout name="register-form" onSubmit={handleSubmit}>
+      {error ? <AuthErrorAlert message={error} /> : null}
+
+      <AuthField label="Nombre de usuario">
+        <AuthInput
+          id="register-username"
+          name="register-username"
+          type="text"
+          autoComplete="nickname"
+          value={username}
+          placeholder="AshKetchum"
+          onChange={(event) => setUsername(event.target.value)}
+        />
+      </AuthField>
+
+      <AuthField label="Email" helperText="Nunca compartiremos tu email.">
+        <AuthInput
+          id="register-email"
+          name="register-email"
+          type="email"
+          autoComplete="email"
+          value={email}
+          placeholder="tu@email.com"
+          onChange={(event) => setEmail(event.target.value)}
+        />
+      </AuthField>
+
+      <AuthField
+        label="Contraseña"
+        helperText={`Mínimo ${PASSWORD_MIN_LENGTH}, máximo ${PASSWORD_MAX_LENGTH} caracteres.`}
+      >
+        <AuthInput
+          id="register-password"
+          name="register-password"
+          type="password"
+          autoComplete="new-password"
+          value={password}
+          placeholder="Ingresá una contraseña"
+          onChange={(event) => setPassword(event.target.value.slice(0, PASSWORD_MAX_LENGTH))}
+          minLength={PASSWORD_MIN_LENGTH}
+          maxLength={PASSWORD_MAX_LENGTH}
+          pattern=".{6,15}"
+        />
+      </AuthField>
+
+      <AuthSubmitButton loading={registerMutation.isPending}>Crear cuenta</AuthSubmitButton>
+    </AuthFormLayout>
   );
 };

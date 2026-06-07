@@ -427,3 +427,70 @@ html {
   animation: mystery-egg-nav-sparkle 1.8s ease-in-out infinite;
   animation-delay: 0.9s;
 }
+
+.glass-scrollbar {
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(124, 58, 237, 0.55) rgba(255, 255, 255, 0.04);
+}
+
+.glass-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.glass-scrollbar::-webkit-scrollbar-track {
+  margin: 6px 0;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 999px;
+}
+
+.glass-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    rgba(167, 139, 250, 0.9) 0%,
+    rgba(124, 58, 237, 0.75) 100%
+  );
+  border: 1px solid rgba(196, 181, 253, 0.22);
+  border-radius: 999px;
+  box-shadow: 0 0 10px rgba(124, 58, 237, 0.28);
+}
+
+.glass-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(196, 181, 253, 0.98) 0%,
+    rgba(139, 92, 246, 0.9) 100%
+  );
+  box-shadow: 0 0 14px rgba(124, 58, 237, 0.45);
+}
+
+.glass-scrollbar::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+.pokemon-grid-scroll {
+  scroll-behavior: smooth;
+  overscroll-behavior: contain;
+  padding-right: 2px;
+}
+
+@keyframes auth-modal-in {
+  0% {
+    opacity: 0;
+    transform: translateY(16px) scale(0.97);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.auth-modal-content {
+  animation: auth-modal-in 0.28s ease-out;
+}
+
+.auth-modal-backdrop {
+  animation: auth-modal-in 0.22s ease-out;
+}

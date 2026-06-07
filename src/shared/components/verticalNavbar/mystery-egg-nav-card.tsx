@@ -21,7 +21,6 @@ const SparkleIcon = ({ size = 12 }: { size?: number }) => (
 export const MysteryEggNavCard: FC<MysteryEggNavCardProps> = ({ isActive, onClick }) => (
   <Box
     as="button"
-    type="button"
     w="full"
     textAlign="left"
     borderRadius="16px"

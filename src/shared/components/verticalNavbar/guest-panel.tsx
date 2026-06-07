@@ -7,7 +7,6 @@ import {
   EggFeatureIcon,
   PokeballOutlineIcon,
   StarFeatureIcon,
-  TeamFeatureIcon,
   UserIcon,
 } from "@/shared/icons/svg-icons";
 
@@ -18,8 +17,7 @@ type GuestPanelProps = {
 
 const FEATURES = [
   { icon: <StarFeatureIcon />, label: "Guardar tus Pokémon favoritos" },
-  { icon: <TeamFeatureIcon />, label: "Crear y gestionar tu equipo" },
-  { icon: <EggFeatureIcon />, label: "Romper huevos y descubrir sorpresas" },
+  { icon: <EggFeatureIcon />, label: "Abrir huevos y descubrir sorpresas" },
 ] as const;
 
 const outlineButtonStyles = {
