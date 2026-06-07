@@ -190,6 +190,16 @@ export const EggFeatureIcon = () => (
   </Box>
 );
 
+export const InfoIcon = () => (
+  <Box as="span" display="inline-flex" flexShrink={0} color="currentColor">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.75" />
+      <path d="M12 11v5" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
+      <circle cx="12" cy="8" r="1" fill="currentColor" />
+    </svg>
+  </Box>
+);
+
 export const PokeballOutlineIcon = () => (
   <Box as="span" display="inline-flex" flexShrink={0}>
     <svg width="62" height="62" viewBox="0 0 62 62" fill="none" aria-hidden="true">

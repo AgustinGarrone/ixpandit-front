@@ -102,8 +102,8 @@ export const PokemonGrid = ({ selectedType }: PokemonGridProps) => {
             {Array.from({ length: PAGE_SIZE }).map((_, index) => (
               <Box
                 key={index}
-                h={{ base: "180px", md: "196px" }}
-                borderRadius="16px"
+                h={{ base: "220px", md: "232px" }}
+                borderRadius="18px"
                 bg="var(--glass-bg-light)"
                 border="1px solid var(--glass-border)"
                 className="animate-pulse"
@@ -119,6 +119,7 @@ export const PokemonGrid = ({ selectedType }: PokemonGridProps) => {
                 name={pokemon.name}
                 imageUrl={pokemon.imageUrl}
                 type={pokemon.type}
+                abilities={pokemon.abilities}
                 isSaved={savedIds.has(pokemon.id)}
                 onToggleSave={() => toggleSaved(pokemon.id)}
               />
