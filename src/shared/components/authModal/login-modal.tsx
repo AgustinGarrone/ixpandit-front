@@ -11,17 +11,25 @@ import { FormMode } from "./form-mode";
 type LoginModalProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  initialMode?: FormMode;
 };
 
-export const LoginModal = ({ open, onOpenChange }: LoginModalProps) => {
-  const [formMode, setFormMode] = useState<FormMode>(FormMode.LOGIN);
+export const LoginModal = ({ open, onOpenChange, initialMode = FormMode.LOGIN }: LoginModalProps) => {
+  const [formMode, setFormMode] = useState<FormMode>(initialMode);
+  const [prevOpen, setPrevOpen] = useState(open);
   const copy = AUTH_COPY[formMode];
 
-  const handleOpenChange = (nextOpen: boolean) => {
-    if (!nextOpen) {
+  if (open !== prevOpen) {
+    setPrevOpen(open);
+
+    if (open) {
+      setFormMode(initialMode);
+    } else {
       setFormMode(FormMode.LOGIN);
     }
+  }
 
+  const handleOpenChange = (nextOpen: boolean) => {
     onOpenChange(nextOpen);
   };
 
@@ -33,9 +41,12 @@ export const LoginModal = ({ open, onOpenChange }: LoginModalProps) => {
 
   return (
     <Dialog.Root
+      lazyMount
+      unmountOnExit
       open={open}
       onOpenChange={(details) => handleOpenChange(details.open)}
       placement="center"
+      restoreFocus={false}
     >
       <Portal>
         <Dialog.Backdrop bg="rgba(4, 12, 24, 0.72)" backdropFilter="blur(6px)" />

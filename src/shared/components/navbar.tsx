@@ -1,10 +1,9 @@
 "use client";
 
 import { Box, Button, Flex, HStack, Image, Text, VStack } from "@chakra-ui/react";
-import { useState } from "react";
 
 import { useAuth } from "@/hooks/useAuth";
-import { LoginModal } from "@/shared/components/authModal";
+import { useAuthModal } from "@/hooks/useAuthModal";
 import { type DecodeTokenData } from "@/shared/types/api/auth.types";
 
 import ashAvatar from "../../../public/ash.png";
@@ -26,7 +25,7 @@ const outlineButtonStyles = {
 };
 
 export const Navbar = () => {
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const { openLogin } = useAuthModal();
   const { getUserInfo, logout, isAuthenticated } = useAuth();
   const authenticated = isAuthenticated();
   const userInfo = authenticated ? (getUserInfo() as DecodeTokenData | null) : null;
@@ -144,7 +143,7 @@ export const Navbar = () => {
                 </Button>
               </>
             ) : (
-              <Button {...outlineButtonStyles} onClick={() => setIsLoginOpen(true)}>
+              <Button {...outlineButtonStyles} onClick={openLogin}>
                 <HStack gap={2}>
                   <UserIcon />
                   <Text>Iniciar sesión</Text>
@@ -154,8 +153,6 @@ export const Navbar = () => {
           </HStack>
         </Flex>
       </Box>
-
-      <LoginModal open={isLoginOpen} onOpenChange={setIsLoginOpen} />
     </>
   );
 };
