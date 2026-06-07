@@ -7,6 +7,8 @@ const API_ERROR_MESSAGES: Record<string, string> = {
   PASSWORD_INCORRECT: "Contraseña incorrecta.",
   EMAIL_ALREADY_EXISTS: "Ese email ya está registrado.",
   USERNAME_ALREADY_EXISTS: "Ese nombre de usuario ya está en uso.",
+  "Username or email already registered":
+    "Ese email o nombre de usuario ya está registrado. Probá con otros datos.",
   Internal_server_error: "Error interno del servidor.",
   "Internal server error": "Error interno del servidor.",
 };
@@ -65,6 +67,10 @@ export const getApiErrorMessage = (error: unknown, fallback: string): string => 
 
     if (status === 404) {
       return "No encontramos el servicio solicitado.";
+    }
+
+    if (status === 409) {
+      return "Ese email o nombre de usuario ya está registrado. Probá con otros datos.";
     }
 
     if (status && status >= 500) {

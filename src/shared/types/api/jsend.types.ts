@@ -45,12 +45,20 @@ export type PaginatedData<T> = {
   pagination: JSendPagination;
 };
 
+const normalizeJSendStatus = (status: unknown): string | null => {
+  if (typeof status !== "string") {
+    return null;
+  }
+
+  return status.trim().toLowerCase();
+};
+
 export const isJSendFailure = (data: unknown): data is JSendFailure => {
   if (!data || typeof data !== "object") {
     return false;
   }
 
-  const status = (data as JSendFailure).status;
+  const status = normalizeJSendStatus((data as JSendFailure).status);
 
   return status === JSendStatus.FAIL || status === JSendStatus.ERROR;
 };
@@ -60,7 +68,9 @@ export const isJSendSuccess = <T>(data: unknown): data is JSendSuccess<T> => {
     return false;
   }
 
-  return (data as JSendSuccess<T>).status === JSendStatus.SUCCESS && "data" in data;
+  const status = normalizeJSendStatus((data as JSendSuccess<T>).status);
+
+  return status === JSendStatus.SUCCESS && "data" in data;
 };
 
 export const isPaginatedData = <T>(data: unknown): data is PaginatedData<T> => {

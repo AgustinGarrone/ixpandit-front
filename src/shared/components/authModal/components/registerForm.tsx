@@ -1,7 +1,5 @@
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { type Dispatch, type FC, type FormEvent, type SetStateAction, useState } from "react";
-import { z } from "zod";
-
 import { useAuthClient } from "@/hooks/useAuthClient";
 import { errorAlert, successAlert } from "@/shared/utils/alerts";
 import { getApiErrorMessage } from "@/shared/utils/api-error.utils";
@@ -15,7 +13,14 @@ import {
   AuthInput,
   AuthSubmitButton,
 } from "./auth-form-ui";
-import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH, registerSchema } from "./form.schemas";
+import {
+  formatZodError,
+  PASSWORD_MAX_LENGTH,
+  PASSWORD_MIN_LENGTH,
+  registerSchema,
+  USERNAME_MAX_LENGTH,
+  USERNAME_MIN_LENGTH,
+} from "./form.schemas";
 
 type RegisterFormProps = {
   changeMode: Dispatch<SetStateAction<FormMode>>;
@@ -33,19 +38,23 @@ export const RegisterForm: FC<RegisterFormProps> = ({ changeMode, layout = "page
     event.preventDefault();
     playSound();
 
-    try {
-      const formData = { username, email, password };
-      registerSchema.parse(formData);
-      setError(null);
-    } catch (submitError) {
-      if (submitError instanceof z.ZodError) {
-        setError(submitError.issues[0]?.message ?? "Datos inválidos");
-      }
+    const formData = {
+      username: username.trim(),
+      email: email.trim(),
+      password,
+    };
+
+    const validation = registerSchema.safeParse(formData);
+
+    if (!validation.success) {
+      setError(formatZodError(validation.error));
       return;
     }
 
+    setError(null);
+
     registerMutation.mutate(
-      { username, email, password },
+      validation.data,
       {
         onSuccess: () => {
           void successAlert("¡Cuenta creada! Ya podés empezar a explorar.").then(() => {
@@ -55,7 +64,9 @@ export const RegisterForm: FC<RegisterFormProps> = ({ changeMode, layout = "page
         onError: (mutationError) => {
           const message = getApiErrorMessage(
             mutationError,
-            "No pudimos crear tu cuenta. Probá con otros datos.",
+            mutationError.httpStatus === 409
+              ? "Ese email o nombre de usuario ya está registrado. Probá con otros datos."
+              : "No pudimos crear tu cuenta. Probá con otros datos.",
           );
 
           setError(message);
@@ -87,15 +98,21 @@ export const RegisterForm: FC<RegisterFormProps> = ({ changeMode, layout = "page
 
         <Box w="80%" mt={4}>
           <AuthFormLayout name="register-form" onSubmit={handleSubmit}>
-            <AuthField label="Nombre de usuario">
+            <AuthField
+              label="Nombre de usuario"
+              helperText={`Entre ${USERNAME_MIN_LENGTH} y ${USERNAME_MAX_LENGTH} caracteres.`}
+            >
               <AuthInput
                 id="register-username"
                 name="register-username"
                 type="text"
                 autoComplete="nickname"
                 value={username}
-                placeholder="AshKetchum"
-                onChange={(event) => setUsername(event.target.value)}
+                placeholder="ash"
+                maxLength={USERNAME_MAX_LENGTH}
+                onChange={(event) =>
+                  setUsername(event.target.value.slice(0, USERNAME_MAX_LENGTH))
+                }
               />
             </AuthField>
 
@@ -125,7 +142,7 @@ export const RegisterForm: FC<RegisterFormProps> = ({ changeMode, layout = "page
                 onChange={(event) => setPassword(event.target.value.slice(0, PASSWORD_MAX_LENGTH))}
                 minLength={PASSWORD_MIN_LENGTH}
                 maxLength={PASSWORD_MAX_LENGTH}
-                pattern=".{6,15}"
+                pattern=".{6,20}"
               />
             </AuthField>
 
@@ -154,15 +171,19 @@ export const RegisterForm: FC<RegisterFormProps> = ({ changeMode, layout = "page
     <AuthFormLayout name="register-form" onSubmit={handleSubmit}>
       {error ? <AuthErrorAlert message={error} /> : null}
 
-      <AuthField label="Nombre de usuario">
+      <AuthField
+        label="Nombre de usuario"
+        helperText={`Entre ${USERNAME_MIN_LENGTH} y ${USERNAME_MAX_LENGTH} caracteres.`}
+      >
         <AuthInput
           id="register-username"
           name="register-username"
           type="text"
           autoComplete="nickname"
           value={username}
-          placeholder="AshKetchum"
-          onChange={(event) => setUsername(event.target.value)}
+          placeholder="ash"
+          maxLength={USERNAME_MAX_LENGTH}
+          onChange={(event) => setUsername(event.target.value.slice(0, USERNAME_MAX_LENGTH))}
         />
       </AuthField>
 
@@ -192,7 +213,7 @@ export const RegisterForm: FC<RegisterFormProps> = ({ changeMode, layout = "page
           onChange={(event) => setPassword(event.target.value.slice(0, PASSWORD_MAX_LENGTH))}
           minLength={PASSWORD_MIN_LENGTH}
           maxLength={PASSWORD_MAX_LENGTH}
-          pattern=".{6,15}"
+          pattern=".{6,20}"
         />
       </AuthField>
 

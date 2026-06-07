@@ -1,7 +1,5 @@
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { type Dispatch, type FC, type FormEvent, type SetStateAction, useState } from "react";
-import { z } from "zod";
-
 import { useAuthClient } from "@/hooks/useAuthClient";
 import { errorAlert, successAlert } from "@/shared/utils/alerts";
 import { getApiErrorMessage } from "@/shared/utils/api-error.utils";
@@ -15,7 +13,12 @@ import {
   AuthInput,
   AuthSubmitButton,
 } from "./auth-form-ui";
-import { loginSchema, PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from "./form.schemas";
+import {
+  formatZodError,
+  loginSchema,
+  PASSWORD_MAX_LENGTH,
+  PASSWORD_MIN_LENGTH,
+} from "./form.schemas";
 
 type LoginFormProps = {
   changeMode: Dispatch<SetStateAction<FormMode>>;
@@ -32,19 +35,22 @@ export const LoginForm: FC<LoginFormProps> = ({ changeMode, layout = "page" }) =
     event.preventDefault();
     playSound();
 
-    try {
-      const formData = { email, password };
-      loginSchema.parse(formData);
-      setError(null);
-    } catch (submitError) {
-      if (submitError instanceof z.ZodError) {
-        setError(submitError.issues[0]?.message ?? "Datos inválidos");
-      }
+    const formData = {
+      email: email.trim(),
+      password,
+    };
+
+    const validation = loginSchema.safeParse(formData);
+
+    if (!validation.success) {
+      setError(formatZodError(validation.error));
       return;
     }
 
+    setError(null);
+
     loginMutation.mutate(
-      { email, password },
+      validation.data,
       {
         onSuccess: () => {
           void successAlert("¡Sesión iniciada correctamente!").then(() => {
@@ -112,7 +118,7 @@ export const LoginForm: FC<LoginFormProps> = ({ changeMode, layout = "page" }) =
                 onChange={(event) => setPassword(event.target.value.slice(0, PASSWORD_MAX_LENGTH))}
                 minLength={PASSWORD_MIN_LENGTH}
                 maxLength={PASSWORD_MAX_LENGTH}
-                pattern=".{6,15}"
+                pattern=".{6,20}"
               />
             </AuthField>
 
@@ -167,7 +173,7 @@ export const LoginForm: FC<LoginFormProps> = ({ changeMode, layout = "page" }) =
           onChange={(event) => setPassword(event.target.value.slice(0, PASSWORD_MAX_LENGTH))}
           minLength={PASSWORD_MIN_LENGTH}
           maxLength={PASSWORD_MAX_LENGTH}
-          pattern=".{6,15}"
+          pattern=".{6,20}"
         />
       </AuthField>
 
