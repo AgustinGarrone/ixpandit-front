@@ -11,7 +11,6 @@ import {
 } from "@/shared/types/api/auth.types";
 import { type ApiRequestError } from "@/shared/utils/api-error.utils";
 import { persistAuthSession } from "@/shared/utils/auth-session.utils";
-import { checkLocalStorage } from "@/shared/utils/localStorage.utils";
 
 const cacheAuthSession = (
   queryClient: ReturnType<typeof useQueryClient>,
@@ -45,47 +44,12 @@ const useRegisterMutation = () => {
   });
 };
 
-const useSetInitialMutation = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation<boolean, ApiRequestError>({
-    mutationFn: async () => {
-      const response = await authClient.setInitialPokemonsTrue();
-
-      queryClient.setQueryData<AuthResponses | undefined>(
-        authKeys.session(),
-        (current: AuthResponses | undefined) => {
-          if (!current) {
-            return current;
-          }
-
-          return {
-            ...current,
-            user: {
-              ...current.user,
-              initialPokemons: true,
-            },
-          };
-        },
-      );
-
-      if (checkLocalStorage()) {
-        localStorage.setItem("initialPokemons", "true");
-      }
-
-      return response;
-    },
-  });
-};
-
 export const useAuthClient = () => {
   const loginMutation = useLoginMutation();
   const registerMutation = useRegisterMutation();
-  const setInitialMutation = useSetInitialMutation();
 
   return {
     loginMutation,
     registerMutation,
-    setInitialMutation,
   };
 };

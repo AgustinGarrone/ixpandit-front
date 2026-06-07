@@ -3,10 +3,9 @@ import { type Dispatch, type FC, type FormEvent, type SetStateAction, useState }
 import { z } from "zod";
 
 import { useAuthClient } from "@/hooks/useAuthClient";
-import { errorAlert } from "@/shared/utils/alerts";
+import { errorAlert, successAlert } from "@/shared/utils/alerts";
 import { getApiErrorMessage } from "@/shared/utils/api-error.utils";
 import { playSound } from "@/shared/utils/fx";
-import { checkLocalStorage } from "@/shared/utils/localStorage.utils";
 
 import { FormMode } from "../form-mode";
 import { loginSchema, PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from "./form.schemas";
@@ -40,17 +39,10 @@ export const LoginForm: FC<LoginFormProps> = ({ changeMode, layout = "page" }) =
     loginMutation.mutate(
       { email, password },
       {
-        onSuccess: (data) => {
-          if (checkLocalStorage()) {
-            localStorage.setItem("accessToken", data.user.token);
-            localStorage.setItem("initialPokemons", data.user.initialPokemons ? "true" : "false");
-          }
-
-          if (!data.user.initialPokemons) {
-            window.location.href = "/getInitial";
-          } else {
+        onSuccess: () => {
+          void successAlert("¡Sesión iniciada correctamente!").then(() => {
             window.location.href = "/";
-          }
+          });
         },
         onError: (mutationError) => {
           const message = getApiErrorMessage(
@@ -59,7 +51,7 @@ export const LoginForm: FC<LoginFormProps> = ({ changeMode, layout = "page" }) =
           );
 
           setError(message);
-          errorAlert(message);
+          void errorAlert(message);
         },
       },
     );

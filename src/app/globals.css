@@ -177,6 +177,10 @@ html {
   border-color: var(--glass-border-hover);
 }
 
+.swal2-container {
+  z-index: 10000 !important;
+}
+
 .glass-toast.swal2-popup.swal2-toast {
   background: var(--glass-shine), rgba(var(--glass-color-rgb), 0.9) !important;
   backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
@@ -217,8 +221,67 @@ html {
   font-weight: 700 !important;
 }
 
+.glass-toast--info {
+  border-color: rgba(255, 255, 255, 0.22) !important;
+  box-shadow:
+    var(--shadow-glass),
+    0 12px 28px rgba(0, 0, 0, 0.42) !important;
+}
+
+.glass-toast--success {
+  border-color: rgba(74, 222, 128, 0.38) !important;
+  box-shadow:
+    var(--shadow-glass),
+    0 12px 28px rgba(0, 0, 0, 0.42),
+    0 0 22px rgba(74, 222, 128, 0.14) !important;
+}
+
+.glass-toast--error {
+  border-color: rgba(251, 113, 133, 0.4) !important;
+  box-shadow:
+    var(--shadow-glass),
+    0 12px 28px rgba(0, 0, 0, 0.42),
+    0 0 22px rgba(251, 113, 133, 0.16) !important;
+}
+
+.glass-toast__icon--info,
 .glass-toast .glass-toast__icon.swal2-info {
+  color: var(--pokemon-yellow) !important;
   border-color: rgba(255, 255, 255, 0.28) !important;
+}
+
+.glass-toast__icon--info .swal2-icon-content,
+.glass-toast .glass-toast__icon.swal2-info .swal2-icon-content {
+  color: var(--pokemon-yellow) !important;
+}
+
+.glass-toast__icon--success,
+.glass-toast .glass-toast__icon.swal2-success {
+  color: var(--accent-success) !important;
+  border-color: rgba(74, 222, 128, 0.35) !important;
+  background: rgba(74, 222, 128, 0.08) !important;
+}
+
+.glass-toast__icon--success .swal2-success-ring {
+  border-color: rgba(74, 222, 128, 0.45) !important;
+}
+
+.glass-toast__icon--success [class^="swal2-success-line"] {
+  background-color: var(--accent-success) !important;
+}
+
+.glass-toast__icon--error,
+.glass-toast .glass-toast__icon.swal2-error {
+  color: var(--accent-danger) !important;
+  border-color: rgba(251, 113, 133, 0.38) !important;
+  background: rgba(251, 113, 133, 0.08) !important;
+}
+
+.glass-toast__icon--error .swal2-x-mark-line-left,
+.glass-toast__icon--error .swal2-x-mark-line-right,
+.glass-toast .glass-toast__icon.swal2-error .swal2-x-mark-line-left,
+.glass-toast .glass-toast__icon.swal2-error .swal2-x-mark-line-right {
+  background-color: var(--accent-danger) !important;
 }
 
 @keyframes glass-toast-in {

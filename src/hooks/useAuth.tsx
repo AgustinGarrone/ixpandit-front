@@ -12,7 +12,6 @@ interface AuthProviderProps {
 const defaultAuthContext = {
   hasHydrated: false,
   isAuthenticated: () => false,
-  userHasInitialPokemons: () => false,
   getToken: () => "",
   getUserInfo: () => null as JwtPayload | null,
   logout: () => {},
@@ -40,20 +39,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         } catch {
           return false;
         }
-      }
-    }
-    return false;
-  };
-
-  const userHasInitialPokemons = () => {
-    if (!hasHydrated) {
-      return false;
-    }
-
-    if (checkLocalStorage()) {
-      const initialPokemons = localStorage.getItem("initialPokemons");
-      if (initialPokemons === "true") {
-        return true;
       }
     }
     return false;
@@ -97,7 +82,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const logout = () => {
     if (checkLocalStorage()) {
-      localStorage.removeItem("initialPokemons");
       localStorage.removeItem("accessToken");
     }
   };
@@ -105,7 +89,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const authContextValue = {
     hasHydrated,
     isAuthenticated,
-    userHasInitialPokemons,
     getToken,
     getUserInfo,
     logout,

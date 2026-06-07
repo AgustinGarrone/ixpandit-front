@@ -1,4 +1,54 @@
-import Swal from "sweetalert2";
+import Swal, { type SweetAlertIcon } from "sweetalert2";
+
+type GlassToastVariant = "info" | "success" | "error";
+
+const GLASS_TOAST_VARIANTS: Record<
+  GlassToastVariant,
+  { icon: SweetAlertIcon; popupClass: string; iconClass: string; timer: number }
+> = {
+  info: {
+    icon: "info",
+    popupClass: "glass-toast glass-toast--info",
+    iconClass: "glass-toast__icon glass-toast__icon--info",
+    timer: 2800,
+  },
+  success: {
+    icon: "success",
+    popupClass: "glass-toast glass-toast--success",
+    iconClass: "glass-toast__icon glass-toast__icon--success",
+    timer: 1400,
+  },
+  error: {
+    icon: "error",
+    popupClass: "glass-toast glass-toast--error",
+    iconClass: "glass-toast__icon glass-toast__icon--error",
+    timer: 3200,
+  },
+};
+
+const showGlassToast = (title: string, variant: GlassToastVariant) => {
+  const config = GLASS_TOAST_VARIANTS[variant];
+
+  return Swal.fire({
+    toast: true,
+    position: "top-end",
+    icon: config.icon,
+    title,
+    showConfirmButton: false,
+    timer: config.timer,
+    customClass: {
+      popup: config.popupClass,
+      title: "glass-toast__title",
+      icon: config.iconClass,
+    },
+    showClass: {
+      popup: "glass-toast--show",
+    },
+    hideClass: {
+      popup: "glass-toast--hide",
+    },
+  });
+};
 
 export function confirmAlert(title: string, text: string): Promise<boolean> {
   return new Promise((resolve) => {
@@ -12,11 +62,7 @@ export function confirmAlert(title: string, text: string): Promise<boolean> {
       confirmButtonText: "Eliminar",
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          title: "Eliminado!",
-          text: "Producto eliminado con éxito.",
-          icon: "success",
-        });
+        void showGlassToast("Producto eliminado con éxito.", "success");
         resolve(true);
       } else {
         resolve(false);
@@ -26,43 +72,13 @@ export function confirmAlert(title: string, text: string): Promise<boolean> {
 }
 
 export function successAlert(title: string) {
-  Swal.fire({
-    position: "top-end",
-    icon: "success",
-    title,
-    showConfirmButton: false,
-    timer: 1000,
-  });
+  return showGlassToast(title, "success");
 }
 
 export function errorAlert(title: string) {
-  Swal.fire({
-    position: "top-end",
-    icon: "error",
-    title,
-    showConfirmButton: false,
-    timer: 1000,
-  });
+  return showGlassToast(title, "error");
 }
 
 export function infoAlert(title: string) {
-  Swal.fire({
-    toast: true,
-    position: "top-end",
-    icon: "info",
-    title,
-    showConfirmButton: false,
-    timer: 2800,
-    customClass: {
-      popup: "glass-toast",
-      title: "glass-toast__title",
-      icon: "glass-toast__icon",
-    },
-    showClass: {
-      popup: "glass-toast--show",
-    },
-    hideClass: {
-      popup: "glass-toast--hide",
-    },
-  });
+  return showGlassToast(title, "info");
 }
