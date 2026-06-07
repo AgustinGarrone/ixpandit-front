@@ -1,17 +1,22 @@
 "use client";
 
-import { Box, Button, Flex, HStack, Image, Separator, Text, VStack } from "@chakra-ui/react";
+import { Box, Button, HStack, Image, Separator, Text, VStack } from "@chakra-ui/react";
 import { type FC } from "react";
 
-import { LogoutIcon, PokeballOutlineIcon, StarFeatureIcon } from "@/shared/icons/svg-icons";
+import { LogoutIcon, PokeballIcon, PokeballOutlineIcon } from "@/shared/icons/svg-icons";
 import { type DecodeTokenData } from "@/shared/types/api/auth.types";
 
 import ashAvatar from "../../../../public/ash.png";
+import bgHome from "../../../../public/bg-home.png";
+import { NavMenu } from "./nav-menu";
 
 type LoggedInPanelProps = {
   userInfo: DecodeTokenData;
   onLogout: () => void;
 };
+
+const formatTrainerName = (value: string) =>
+  value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
 
 export const LoggedInPanel: FC<LoggedInPanelProps> = ({ userInfo, onLogout }) => (
   <VStack
@@ -26,68 +31,87 @@ export const LoggedInPanel: FC<LoggedInPanelProps> = ({ userInfo, onLogout }) =>
     overflow="hidden"
   >
     <VStack align="stretch" gap={5}>
-      <VStack align="stretch" gap={2}>
-        <Text
-          color="var(--text-primary)"
-          fontSize={{ base: "lg", md: "xl" }}
-          fontWeight="700"
-          lineHeight="1.3"
-        >
-          ¡Hola, {userInfo.username}!
-        </Text>
-        <Text color="var(--text-muted)" fontSize={{ base: "sm", md: "md" }} lineHeight="1.5">
-          Tu aventura continúa. Explorá, guardá favoritos y armá tu equipo.
-        </Text>
-      </VStack>
-
-      <HStack gap={4} p={4} borderRadius="14px" bg="rgba(255, 255, 255, 0.04)">
+      <Box
+        position="relative"
+        overflow="hidden"
+        borderRadius="16px"
+        border="1px solid rgba(255, 255, 255, 0.14)"
+        boxShadow="0 8px 24px rgba(0, 0, 0, 0.28)"
+        isolation="isolate"
+      >
+        <Image
+          src={bgHome.src}
+          alt=""
+          position="absolute"
+          inset={0}
+          w="full"
+          h="full"
+          objectFit="cover"
+          objectPosition="center 35%"
+          filter="brightness(0.78) saturate(0.92)"
+          aria-hidden
+          pointerEvents="none"
+        />
         <Box
-          w="52px"
-          h="52px"
-          borderRadius="full"
-          overflow="hidden"
-          border="2px solid rgba(255, 255, 255, 0.16)"
-          flexShrink={0}
-        >
-          <Image
-            src={ashAvatar.src}
-            alt={userInfo.username}
-            w="full"
-            h="full"
-            objectFit="cover"
-          />
-        </Box>
+          position="absolute"
+          inset={0}
+          bg="linear-gradient(180deg, rgba(7, 30, 48, 0.42) 0%, rgba(6, 10, 22, 0.68) 100%)"
+          aria-hidden
+          pointerEvents="none"
+        />
 
-        <VStack align="flex-start" gap={0.5} minW={0}>
-          <Text color="var(--text-primary)" fontSize="md" fontWeight="700" truncate w="full">
-            {userInfo.username.toUpperCase()}
-          </Text>
-          <Text color="var(--text-muted)" fontSize="xs">
-            Entrenador Pokémon
-          </Text>
-        </VStack>
-      </HStack>
+        <Box position="relative" zIndex={1} p={4}>
+          <Box position="absolute" top={3} right={3} opacity={0.9} transform="scale(0.9)">
+            <PokeballIcon />
+          </Box>
+
+          <HStack gap={3.5} align="center" pr={7}>
+            <Box
+              p="2px"
+              borderRadius="full"
+              flexShrink={0}
+              bg="linear-gradient(135deg, #f472b6 0%, #38bdf8 100%)"
+              boxShadow="0 0 16px rgba(244, 114, 182, 0.28)"
+            >
+              <Box
+                w="52px"
+                h="52px"
+                borderRadius="full"
+                overflow="hidden"
+                border="2px solid rgba(10, 14, 30, 0.85)"
+              >
+                <Image
+                  src={ashAvatar.src}
+                  alt={userInfo.username}
+                  w="full"
+                  h="full"
+                  objectFit="cover"
+                />
+              </Box>
+            </Box>
+
+            <VStack align="flex-start" gap={0.5} minW={0} flex={1}>
+              <Text
+                color="var(--text-primary)"
+                fontSize={{ base: "md", md: "lg" }}
+                fontWeight="700"
+                lineHeight="1.2"
+                truncate
+                w="full"
+              >
+                {formatTrainerName(userInfo.username)}
+              </Text>
+              <Text color="rgba(255, 255, 255, 0.62)" fontSize="sm" lineHeight="1.3">
+                Entrenador/a
+              </Text>
+            </VStack>
+          </HStack>
+        </Box>
+      </Box>
 
       <Separator borderColor="rgba(255, 255, 255, 0.1)" />
 
-      <VStack align="stretch" gap={3}>
-        <HStack align="center" gap={3}>
-          <Flex
-            align="center"
-            justify="center"
-            w="36px"
-            h="36px"
-            borderRadius="10px"
-            bg="rgba(255, 255, 255, 0.04)"
-            flexShrink={0}
-          >
-            <StarFeatureIcon />
-          </Flex>
-          <Text color="var(--text-secondary)" fontSize="sm" lineHeight="1.4">
-            Tus favoritos y equipo te esperan en el buscador
-          </Text>
-        </HStack>
-      </VStack>
+      <NavMenu />
     </VStack>
 
     <VStack align="stretch" gap={4}>
