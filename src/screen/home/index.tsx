@@ -8,6 +8,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { HomeView, useHomeView } from "@/hooks/useHomeView";
 import { MysteryEggPanel } from "@/screen/home/components/mysteryEgg";
 import { PokemonGrid } from "@/screen/home/components/PokemonGrid";
+import { DesktopOnlyNotice } from "@/shared/components/desktop-only-notice";
 import { Footer } from "@/shared/components/footer";
 import { NavbarSkeleton } from "@/shared/components/navbar-skeleton";
 import { Searcher } from "@/shared/components/searcher/search";
@@ -73,24 +74,23 @@ export const HomePage = () => (
       px={{ base: 5, md: 10 }}
       overflow="hidden"
     >
+      <Box display={{ base: "flex", lg: "none" }} flex="1" minH={0} w="full" maxW="1280px" mx="auto">
+        <DesktopOnlyNotice />
+      </Box>
+
       <Flex
+        display={{ base: "none", lg: "flex" }}
         flex="1"
         minH={0}
         w="full"
         maxW="1280px"
         mx="auto"
-        gap={{ base: 5, lg: 6 }}
-        direction={{ base: "column", lg: "row" }}
+        gap={6}
+        direction="row"
         align="stretch"
         overflow="hidden"
       >
-        <Box
-          flex={{ base: "0 0 auto", lg: "3 1 0" }}
-          minW={0}
-          maxW="100%"
-          minH={0}
-          h={{ base: "auto", lg: "full" }}
-        >
+        <Box flex="3 1 0" minW={0} maxW="100%" minH={0} h="full">
           <VerticalNavbar />
         </Box>
 
