@@ -6,6 +6,9 @@ services:
       args:
         NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:8100/api/v1}
     container_name: ixp-pok-front
+    restart: unless-stopped
     ports:
       - "${FRONT_PORT:-3000}:3000"
-    restart: unless-stopped
+    env_file:
+      - path: .env
+        required: false
